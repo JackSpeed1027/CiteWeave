@@ -1,0 +1,8 @@
+/.env
+/web/node_modules/
+/web/dist/
+/server/target/
+/.tool-cache/
+*.log
+.idea/
+.vscode/
