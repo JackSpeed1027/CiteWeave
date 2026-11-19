@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Locale;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
@@ -29,7 +30,23 @@ class SourceParser {
             default -> throw new ResponseStatusException(HttpStatus.UNSUPPORTED_MEDIA_TYPE,
                     "支持 PDF、TXT、Markdown、SRT 和 VTT 文件。");
         };
-        return new Parsed(kind, text(kind.equals("PDF") ? pdf(bytes) : utf8(bytes)));
+        String content = text(kind.equals("PDF") ? pdf(bytes) : utf8(bytes));
+        if (isTranscript(kind)) {
+            transcript(kind, content);
+        }
+        return new Parsed(kind, content);
+    }
+
+    boolean isTranscript(String kind) {
+        return kind.equals("SRT") || kind.equals("VTT");
+    }
+
+    List<TranscriptParser.Segment> transcript(String kind, String content) {
+        try {
+            return TranscriptParser.parse(kind, text(content));
+        } catch (IllegalArgumentException exception) {
+            throw invalid(exception.getMessage());
+        }
     }
 
     String text(String value) {

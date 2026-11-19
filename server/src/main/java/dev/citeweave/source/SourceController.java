@@ -28,6 +28,11 @@ class SourceController {
         return service.find(id);
     }
 
+    @GetMapping("/{id}/transcript")
+    List<TranscriptParser.Segment> transcript(@PathVariable long id) {
+        return service.transcript(id);
+    }
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<SourceRepository.Detail> paste(@RequestBody PasteRequest request) {
         return created(service.paste(request.title(), request.content()));

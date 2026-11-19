@@ -26,6 +26,15 @@ class SourceService {
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "找不到这份资料。"));
     }
 
+    List<TranscriptParser.Segment> transcript(long id) {
+        var detail = find(id);
+        String kind = detail.source().kind();
+        if (!parser.isTranscript(kind)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "这份资料没有字幕轨道。");
+        }
+        return parser.transcript(kind, detail.content());
+    }
+
     SourceRepository.Detail paste(String title, String content) {
         return repository.insert(validTitle(title), "TEXT", null, parser.text(content));
     }

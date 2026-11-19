@@ -52,3 +52,5 @@ Pop-Location
 当前验收范围是资料导入、持久化和读取。AI 摘要、资料问答、收藏夹和笔记列在完整 MVP 的下一批验收项中。
 
 [产品范围](docs/PRODUCT.md) · [架构](docs/ARCHITECTURE.md) · [路线](docs/ROADMAP.md) · [决策](docs/DECISIONS.md) · [开发日志](docs/DEVLOG.md)
+
+上传有效 SRT/VTT 后，`GET /api/sources/{id}/transcript` 返回毫秒片段。资料页仍显示保存的原始字幕。测试时间区间与失败边界可用[字幕实验](docs/LABS.md)。更多接管材料见[现状审计](docs/AUDIT.md)、[视频选型](docs/VIDEO_RESEARCH.md)与[测试计划](docs/TEST_PLAN.md)。

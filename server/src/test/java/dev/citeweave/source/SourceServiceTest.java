@@ -56,6 +56,16 @@ class SourceServiceTest {
     }
 
     @Test
+    void rejectsInvalidSubtitleWithoutInserting() {
+        var upload = new MockMultipartFile("file", "broken.srt", "text/plain",
+                "1\n00:00:03,000 --> 00:00:02,000\n倒序".getBytes(StandardCharsets.UTF_8));
+        assertThatThrownBy(() -> service.upload(null, upload))
+                .isInstanceOfSatisfying(ResponseStatusException.class,
+                        error -> assertThat(error.getStatusCode()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY));
+        verifyNoInteractions(repository);
+    }
+
+    @Test
     void keepsPastedParagraphsAndRejectsMissingContent() {
         service.paste("  Paper  ", " first\n\nsecond ");
         verify(repository).insert("Paper", "TEXT", null, "first\n\nsecond");
