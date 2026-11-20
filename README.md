@@ -1,10 +1,12 @@
 # CiteWeave
 
-正式开发从[本机环境与启动指南](docs/DEVELOPMENT.md)开始。Java、Python 智能体与前端的并行安排见[正式开发计划](docs/IMPLEMENTATION_PLAN.md)，代码和协作规范见 [AGENTS.md](AGENTS.md)。
+[文档索引](docs/README.md) · [HTTP API 与异常规范](docs/development/API_CONTRACT.md)
 
-高保真交互原型可独立启动。在 `web` 内运行 `npm.cmd run prototype` 后打开 [原型工作台](http://127.0.0.1:5175/prototype.html)。使用说明、六条验收路线与模拟范围见[原型交付说明](docs/PROTOTYPE.md)。
+正式开发从[本机环境与启动指南](docs/development/DEVELOPMENT.md)开始。Java、Python 智能体与前端的并行安排见[正式开发计划](docs/planning/IMPLEMENTATION_PLAN.md)，代码和协作规范见 [AGENTS.md](AGENTS.md)。
 
-[原型使用手册](docs/PROTOTYPE_USER_MANUAL.md)提供各功能的场景、操作案例、边界和常见问题。
+高保真交互原型可独立启动。在 `web` 内运行 `npm.cmd run prototype` 后打开 [原型工作台](http://127.0.0.1:5175/prototype.html)。使用说明、六条验收路线与模拟范围见[原型交付说明](docs/product/PROTOTYPE.md)。
+
+[原型使用手册](docs/product/PROTOTYPE_USER_MANUAL.md)提供各功能的场景、操作案例、边界和常见问题。
 
 CiteWeave 是一个多源资料工作台。本次交付包含工作台、资料库、导入页和资料工作区，可将文档、字幕及粘贴文本保存到 PostgreSQL，再按资料读取提取后的正文。
 
@@ -57,6 +59,6 @@ Pop-Location
 
 当前验收范围是资料导入、持久化和读取。AI 摘要、资料问答、收藏夹和笔记列在完整 MVP 的下一批验收项中。
 
-[产品范围](docs/PRODUCT.md) · [架构](docs/ARCHITECTURE.md) · [路线](docs/ROADMAP.md) · [决策](docs/DECISIONS.md) · [开发日志](docs/DEVLOG.md)
+[产品范围](docs/product/PRODUCT.md) · [架构](docs/architecture/ARCHITECTURE.md) · [路线](docs/planning/ROADMAP.md) · [决策](docs/architecture/DECISIONS.md) · [开发日志](docs/planning/DEVLOG.md)
 
-上传有效 SRT/VTT 后，`GET /api/sources/{id}/transcript` 返回毫秒片段。资料页仍显示保存的原始字幕。测试时间区间与失败边界可用[字幕实验](docs/LABS.md)。更多接管材料见[现状审计](docs/AUDIT.md)、[视频选型](docs/VIDEO_RESEARCH.md)与[测试计划](docs/TEST_PLAN.md)。
+上传有效 SRT/VTT 后，`GET /api/sources/{id}/transcript` 返回毫秒片段。资料页仍显示保存的原始字幕。测试时间区间与失败边界可用[字幕实验](docs/learning/LABS.md)。更多接管材料见[现状审计](docs/planning/AUDIT.md)、[视频选型](docs/architecture/VIDEO_RESEARCH.md)与[测试计划](docs/quality/TEST_PLAN.md)。

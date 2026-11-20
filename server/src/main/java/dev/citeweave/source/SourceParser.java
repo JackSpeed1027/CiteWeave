@@ -9,9 +9,8 @@ import java.util.Locale;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
 import org.apache.pdfbox.text.PDFTextStripper;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.web.server.ResponseStatusException;
+import static dev.citeweave.source.SourceException.Code.*;
 
 @Component
 class SourceParser {
@@ -27,7 +26,7 @@ class SourceParser {
             case "md", "markdown" -> "MARKDOWN";
             case "srt" -> "SRT";
             case "vtt" -> "VTT";
-            default -> throw new ResponseStatusException(HttpStatus.UNSUPPORTED_MEDIA_TYPE,
+            default -> throw new SourceException(SOURCE_FILE_TYPE_UNSUPPORTED,
                     "支持 PDF、TXT、Markdown、SRT 和 VTT 文件。");
         };
         String content = text(kind.equals("PDF") ? pdf(bytes) : utf8(bytes));
@@ -45,7 +44,7 @@ class SourceParser {
         try {
             return TranscriptParser.parse(kind, text(content));
         } catch (IllegalArgumentException exception) {
-            throw invalid(exception.getMessage());
+            throw new SourceException(SOURCE_TRANSCRIPT_INVALID, exception.getMessage(), exception);
         }
     }
 
@@ -87,7 +86,7 @@ class SourceParser {
         }
     }
 
-    private ResponseStatusException invalid(String message) {
-        return new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, message);
+    private SourceException invalid(String message) {
+        return new SourceException(SOURCE_CONTENT_INVALID, message);
     }
 }

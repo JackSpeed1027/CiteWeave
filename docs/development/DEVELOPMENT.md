@@ -61,4 +61,4 @@ Pop-Location
 
 `server/` 管理 Java 业务和 Flyway，`ai/` 管理 Python HTTP 服务及后续 AI 实现，`web/` 包含真实前端与独立原型，`infra/` 管理本地依赖服务，`sample-data/` 保存无敏感信息的样例，`docs/` 保存决策、契约、进度、测试和用户实验。
 
-相关文档为 [正式开发计划](IMPLEMENTATION_PLAN.md)、[本地实验](LABS.md)、[代码协作规范](../AGENTS.md) 和[整体架构](ARCHITECTURE.md)。
+相关文档为 [正式开发计划](../planning/IMPLEMENTATION_PLAN.md)、[本地实验](../learning/LABS.md)、[代码协作规范](../../AGENTS.md) 和[整体架构](../architecture/ARCHITECTURE.md)。

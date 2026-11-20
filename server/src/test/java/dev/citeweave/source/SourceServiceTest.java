@@ -8,9 +8,7 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -50,8 +48,8 @@ class SourceServiceTest {
     void rejectsInvalidEncodingWithoutInserting() {
         var upload = new MockMultipartFile("file", "broken.txt", "text/plain", new byte[]{(byte) 0xff});
         assertThatThrownBy(() -> service.upload(null, upload))
-                .isInstanceOfSatisfying(ResponseStatusException.class,
-                        error -> assertThat(error.getStatusCode()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY));
+                .isInstanceOfSatisfying(SourceException.class,
+                        error -> assertThat(error.code()).isEqualTo(SourceException.Code.SOURCE_CONTENT_INVALID));
         verifyNoInteractions(repository);
     }
 
@@ -60,8 +58,8 @@ class SourceServiceTest {
         var upload = new MockMultipartFile("file", "broken.srt", "text/plain",
                 "1\n00:00:03,000 --> 00:00:02,000\n倒序".getBytes(StandardCharsets.UTF_8));
         assertThatThrownBy(() -> service.upload(null, upload))
-                .isInstanceOfSatisfying(ResponseStatusException.class,
-                        error -> assertThat(error.getStatusCode()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY));
+                .isInstanceOfSatisfying(SourceException.class,
+                        error -> assertThat(error.code()).isEqualTo(SourceException.Code.SOURCE_TRANSCRIPT_INVALID));
         verifyNoInteractions(repository);
     }
 
@@ -69,7 +67,7 @@ class SourceServiceTest {
     void keepsPastedParagraphsAndRejectsMissingContent() {
         service.paste("  Paper  ", " first\n\nsecond ");
         verify(repository).insert("Paper", "TEXT", null, "first\n\nsecond");
-        assertThatThrownBy(() -> service.paste("Empty", "  ")).isInstanceOf(ResponseStatusException.class);
+        assertThatThrownBy(() -> service.paste("Empty", "  ")).isInstanceOf(SourceException.class);
         verifyNoMoreInteractions(repository);
     }
 }

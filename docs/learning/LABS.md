@@ -25,7 +25,7 @@ $afterInvalid = (Invoke-RestMethod $api).Count
 
 **目标**。区分浏览器入口、Java 业务、PostgreSQL 和 Python HTTP 边界。记录观测并用实际文件说明调用路线。
 
-在 [本地开发环境](DEVELOPMENT.md)启动服务。先在仓库根目录执行以下只读检查。输出只包含 HTTP 状态与 PostgreSQL 健康情况。
+在 [本地开发环境](../development/DEVELOPMENT.md)启动服务。先在仓库根目录执行以下只读检查。输出只包含 HTTP 状态与 PostgreSQL 健康情况。
 
 ```powershell
 docker compose -f infra/compose.yaml ps
@@ -49,3 +49,15 @@ uv run --locked uvicorn citeweave_ai.app:app --app-dir src --host 127.0.0.1 --po
 | Compose health | 待记录 | 待记录 |
 
 走读 `web/vite.config.ts`、`SourceController`、`SourceRepository`、`ai/src/citeweave_ai/app.py`。提交实际输出后回答 KNOWLEDGE_CHECK 的环境问题。
+
+## 实验 03 · 从业务异常追踪到 HTTP 响应
+
+启动新版 Java Core 后，在 PowerShell 执行。前两条请求读取非法或缺失的资料 ID，最后一条发送破损 JSON，各请求均不会创建资料。
+
+```powershell
+curl.exe -isS http://127.0.0.1:8087/api/sources/not-a-number
+curl.exe -isS http://127.0.0.1:8087/api/sources/9223372036854775807
+curl.exe -isS -H "Content-Type: application/json" --data-binary "{" http://127.0.0.1:8087/api/sources
+```
+
+记录每个请求的状态、媒体类型、`code` 和 `detail`。结合 `SourceService.find` 和 `SourceErrorHandler` 解释哪些失败发生在业务层，哪些在 HTTP 参数或正文解析阶段就被拦截。如果客户端要显示中文提示和决定是否重试，分别选哪个字段？对照 [HTTP API 规范](../development/API_CONTRACT.md)，先记录实际观察，再讨论原因。

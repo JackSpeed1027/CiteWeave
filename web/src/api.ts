@@ -10,6 +10,13 @@ export type Source = {
 
 export type SourceDetail = { source: Source; content: string }
 
+export class ApiError extends Error {
+  constructor(message: string, readonly status: number, readonly code?: string) {
+    super(message)
+    this.name = 'ApiError'
+  }
+}
+
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   let response: Response
   try {
@@ -20,7 +27,9 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
   if (!response.ok) {
     const problem = await response.json().catch(() => null)
     const friendly = response.status >= 500 ? '服务暂时不可用，请检查后端及数据库。' : '请求失败，请检查输入内容。'
-    throw new Error(response.status < 500 && problem?.detail ? problem.detail : friendly)
+    const detail = typeof problem?.detail === 'string' && problem.detail ? problem.detail : friendly
+    const code = typeof problem?.code === 'string' ? problem.code : undefined
+    throw new ApiError(response.status < 500 ? detail : friendly, response.status, code)
   }
   return response.json()
 }
