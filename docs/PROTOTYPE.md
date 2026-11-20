@@ -1,5 +1,7 @@
 # CiteWeave 交互原型
 
+面向日常使用及产品验收的完整说明见[原型使用手册](PROTOTYPE_USER_MANUAL.md)。
+
 原型入口为 `web/prototype.html`，复用 React、TypeScript、Vite 和 Lucide。页面使用 React Router、Tailwind 与基于 Radix 的 shadcn/ui 风格对话框。既有资料工作台可从 Vite 的首页访问。
 
 ## 本地启动

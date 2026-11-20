@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { BookOpen, ChevronRight, CircleCheck, Clipboard, ExternalLink, FilePlus2, FileText, ListTree, LoaderCircle, Pause, Play, Plus, Quote, RotateCcw, Send, Sparkles, Square, Star } from 'lucide-react'
 import { useWorkspace } from './state'
-import { makeRun, noteFrom, stepIndex, uid } from './services'
+import { folderScope, makeRun, maxResearchSources, noteFrom, stepIndex, uid } from './services'
 import { researchSteps, targetLabels, type Destination, type Run, type Source } from './mock'
 import { Banner, Button, Empty, IconButton, Markdown, Modal, PageHead, Select, Status, TypeIcon } from './ui'
 
@@ -97,20 +97,30 @@ export function Agent() {
   const [params]=useSearchParams()
   const navigate=useNavigate()
   const from=params.get('source')??''
+  const collection=params.get('collection')??''
+  const entryFolder=model.folders.find(f=>f.id===collection)
   const prefill=params.get('ask')??''
   const chat=model.chats.find(c=>c.id===id)
-  const firstSources=model.sources.filter(s=>s.status==='done').slice(0,2).map(s=>s.id)
-  const setupid=id??from
+  const available=model.sources.filter(s=>s.status==='done')
+  const firstSources=available.slice(0,2).map(s=>s.id)
+  const setupid=id??(from||collection)
   const [drafts,setDrafts]=useState<Record<string,string>>({})
   const [selections,setSelections]=useState<Record<string,string[]>>({})
   const [select,setSelect]=useState(false)
-  const chosen=chat?.sources??selections[setupid]??(from?[from]:firstSources)
+  const [filterFolder,setFilterFolder]=useState('')
+  const [filterTerm,setFilterTerm]=useState('')
+  const entryScope=folderScope(model.folders,collection)
+  const chosen=(chat?.sources??selections[setupid]??(from?[from]:entryFolder?available.filter(s=>entryScope.has(s.collection)).map(s=>s.id):firstSources))
+    .filter(id=>available.some(s=>s.id===id))
+  const scope=folderScope(model.folders,filterFolder)
+  const visibleSources=available.filter(s=>(!filterFolder||scope.has(s.collection))&&
+    (s.title+' '+s.origin+' '+s.tags.join(' ')).toLowerCase().includes(filterTerm.trim().toLowerCase()))
+  const tooMany=chosen.length>maxResearchSources
   const query=drafts[setupid]??prefill
   const active=chat?.runs.find(r=>r.status==='running')
   const latest=chat?.runs.at(-1)
   const setQuery=(value:string)=>setDrafts(m=>({...m,[setupid]:value}))
-  const selectSource=(sourceId:string)=>{
-    const next=chosen.includes(sourceId)?chosen.filter(s=>s!==sourceId):[...chosen,sourceId]
+  const setChosen=(next:string[])=>{
     if (chat) update(m=>({...m,chats:m.chats.map(c=>c.id===chat.id?{...c,sources:next}:c)}))
     else setSelections(m=>({...m,[setupid]:next}))
   }
@@ -118,6 +128,10 @@ export function Agent() {
     text=text.trim()
     if (!text||active) return
     const selected=model.sources.filter(s=>sources.includes(s.id)&&s.status==='done')
+    if (selected.length>maxResearchSources) {
+      toast('每次最多研究 '+maxResearchSources+' 份资料，请缩小范围。')
+      return
+    }
     const run=makeRun(text,selected)
     const chatId=chat?.id??uid()
     update(m=>({...m,chats:chat?m.chats.map(c=>c.id===chat.id?{...c,runs:[...c.runs,run]}:c):
@@ -165,11 +179,12 @@ export function Agent() {
           </div>)}
         </div>
         <form className="composer" onSubmit={e=>{e.preventDefault();submit(query)}}>
-          <div className="composer-tools"><Button onClick={()=>setSelect(true)}><BookOpen size={16}/> 选择资料 · {chosen.length}</Button><span>预设结果 · 支持追踪步骤与引用</span></div>
+          <div className="composer-tools"><Button onClick={()=>{setFilterFolder(entryFolder?.id??'');setFilterTerm('');setSelect(true)}}><BookOpen size={16}/> 选择资料 · {chosen.length}</Button><span>{entryFolder&&!chat?entryFolder.name+' · 含子文件夹':'预设结果 · 支持追踪步骤与引用'}</span></div>
+          {tooMany&&<Banner error>每次最多使用 {maxResearchSources} 份资料，请从选择资料中缩小范围。</Banner>}
           <textarea aria-label="向 Agent 提问" placeholder="提出问题，或告诉 Agent 你想保存到哪里…" value={query} onChange={e=>setQuery(e.target.value)} onKeyDown={e=>{
             if(e.key==='Enter'&&!e.shiftKey&&!e.nativeEvent.isComposing){e.preventDefault();submit(query)}
           }}/>
-          <div className="composer-footer"><span>Enter 发送 · Shift + Enter 换行</span>{active?<Button onClick={stop}><Square size={15}/> 停止</Button>:<Button type="submit" variant="primary" disabled={!query.trim()}><Send size={16}/> 发送</Button>}</div>
+          <div className="composer-footer"><span>Enter 发送 · Shift + Enter 换行</span>{active?<Button onClick={stop}><Square size={15}/> 停止</Button>:<Button type="submit" variant="primary" disabled={!query.trim()||tooMany}><Send size={16}/> 发送</Button>}</div>
         </form>
       </section>
       <aside className="panel trace"><div className="section-head"><h2>执行过程</h2></div>
@@ -179,8 +194,18 @@ export function Agent() {
         </div>:<p className="trace-empty">发送任务后在此查看资料读取、对照和生成进度。</p>}
       </aside>
     </div>
-    {select&&<Modal title="选择资料" description="选择要纳入本次研究的资料。" close={()=>setSelect(false)}>
-      <div className="select-sources">{model.sources.filter(s=>s.status==='done').map(s=><label key={s.id} className="item-row"><input type="checkbox" checked={chosen.includes(s.id)} onChange={()=>selectSource(s.id)}/><TypeIcon kind={s.kind}/><span className="row-label"><strong>{s.title}</strong><small>{s.origin}</small></span></label>)}</div>
+    {select&&<Modal title="选择资料" description={'只显示已完成的资料，每次最多使用 '+maxResearchSources+' 份。'} close={()=>setSelect(false)}>
+      <div className="toolbar">
+        <label className="search"><input aria-label="筛选研究资料" placeholder="搜索标题、来源或标签" value={filterTerm} onChange={e=>setFilterTerm(e.target.value)}/></label>
+        <Select label="研究资料分类" value={filterFolder} change={setFilterFolder}><option value="">所有分类</option>{model.folders.map(f=><option key={f.id} value={f.id}>{f.name}</option>)}</Select>
+      </div>
+      <div className="toolbar">
+        <Button disabled={!visibleSources.length||visibleSources.every(s=>chosen.includes(s.id))} onClick={()=>setChosen([...new Set([...chosen,...visibleSources.map(s=>s.id)])])}>选中全部结果</Button>
+        <Button disabled={!chosen.length} onClick={()=>setChosen([])}>清空选择</Button>
+      </div>
+      {!visibleSources.length&&<Empty title="没有匹配的资料" text="换个关键词，或切换分类。已选资料仍会保留。"/>}
+      <div className="select-sources">{visibleSources.map(s=><label key={s.id} className="item-row"><input type="checkbox" checked={chosen.includes(s.id)} onChange={()=>setChosen(chosen.includes(s.id)?chosen.filter(id=>id!==s.id):[...chosen,s.id])}/><TypeIcon kind={s.kind}/><span className="row-label"><strong>{s.title}</strong><small>{s.origin}</small></span></label>)}</div>
+      {tooMany&&<Banner error>已选 {chosen.length} 份，请减至 {maxResearchSources} 份以内。</Banner>}
       <div className="modal-actions"><Button variant="primary" onClick={()=>setSelect(false)}>使用 {chosen.length} 份资料</Button></div>
     </Modal>}
   </>

@@ -2,6 +2,8 @@
 
 高保真交互原型可独立启动。在 `web` 内运行 `npm.cmd run prototype` 后打开 [原型工作台](http://127.0.0.1:5175/prototype.html)。使用说明、六条验收路线与模拟范围见[原型交付说明](docs/PROTOTYPE.md)。
 
+[原型使用手册](docs/PROTOTYPE_USER_MANUAL.md)提供各功能的场景、操作案例、边界和常见问题。
+
 CiteWeave 是一个多源资料工作台。本次交付包含工作台、资料库、导入页和资料工作区，可将文档、字幕及粘贴文本保存到 PostgreSQL，再按资料读取提取后的正文。
 
 ## Windows 本地启动

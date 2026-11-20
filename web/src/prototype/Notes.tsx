@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { BookOpen, Copy, Download, Eye, FileText, History, Pencil, Plus, Save, Search } from 'lucide-react'
-import { dateLabel, noteFrom } from './services'
+import { dateLabel, folderScope, noteFrom } from './services'
 import type { Destination, Note } from './mock'
 import { Reference } from './Research'
 import { useWorkspace } from './state'
@@ -13,6 +13,8 @@ export function Notes() {
   const {id}=useParams()
   const [params,setParams]=useSearchParams()
   const [term,setTerm]=useState('')
+  const [folderFilter,setFolderFilter]=useState('')
+  const [tagFilter,setTagFilter]=useState('')
   const [newDialog,setNewDialog]=useState(false)
   const [title,setTitle]=useState('')
   const navigate=useNavigate()
@@ -28,13 +30,19 @@ export function Notes() {
     navigate('/notes/'+next.id)
   }
   if (note) return <Editor key={note.id} note={note}/>
+  const scope=folderScope(model.folders,folderFilter)
+  const shown=model.notes.filter(n=>(!folderFilter||scope.has(n.collection))&&(!tagFilter||n.tags.includes(tagFilter))&&
+    (n.title+' '+n.tags.join(' ')).toLowerCase().includes(term.trim().toLowerCase())).sort((a,b)=>b.date-a.date)
   return <>
     <PageHead title="笔记与文档" subtitle="继续编辑研究成果、查看版本并保存到你的目的地。" actions={<Button variant="primary" onClick={()=>setNewDialog(true)}><Plus size={17}/> 新建笔记</Button>}/>
     <section className="panel">
-      <div className="filter-bar"><label className="search"><Search size={17}/><input value={term} onChange={e=>setTerm(e.target.value)} aria-label="搜索笔记" placeholder="按标题或标签搜索"/></label></div>
-      {model.notes.filter(n=>(n.title+n.tags.join(' ')).toLowerCase().includes(term.trim().toLowerCase())).map(n=>
+      <div className="filter-bar"><label className="search"><Search size={17}/><input value={term} onChange={e=>setTerm(e.target.value)} aria-label="搜索笔记" placeholder="按标题或标签搜索"/></label>
+        <Select label="按分类筛选笔记" value={folderFilter} change={setFolderFilter}><option value="">全部分类</option>{model.folders.map(f=><option key={f.id} value={f.id}>{f.name}</option>)}</Select>
+        <Select label="按标签筛选笔记" value={tagFilter} change={setTagFilter}><option value="">全部标签</option>{model.tags.map(t=><option key={t}>{t}</option>)}</Select>
+      </div>
+      {shown.map(n=>
         <Link className="item-row" key={n.id} to={'/notes/'+n.id}><span className="quick-icon purple"><FileText size={18}/></span><span className="row-label"><strong>{n.title}</strong><small>{n.tags.length?n.tags.join('、')+' · ':''}{n.sources.length} 份来源</small></span><span className="row-date">{dateLabel(n.date)}</span></Link>)}
-      {model.notes.every(n=>!(n.title+n.tags.join(' ')).toLowerCase().includes(term.trim().toLowerCase()))&&<Empty title="找不到笔记" text="更换关键词，或新建一篇笔记。"/>}
+      {!shown.length&&<Empty title="找不到笔记" text="更换关键词或清除筛选。"><Button onClick={()=>{setTerm('');setFolderFilter('');setTagFilter('')}}>清除筛选</Button></Empty>}
     </section>
     {showNew&&<Modal title="新建笔记" description="用 Markdown 编辑内容，修改自动保存在当前浏览器。" close={closeNew}>
       <form onSubmit={e=>{e.preventDefault();create()}}><label className="field"><span>笔记名称</span><input value={title} onChange={e=>setTitle(e.target.value)} maxLength={120}/></label><div className="modal-actions"><Button variant="primary" disabled={!title.trim()} type="submit">创建笔记</Button></div></form>

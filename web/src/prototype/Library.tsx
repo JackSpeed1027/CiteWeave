@@ -96,13 +96,19 @@ export function Collections() {
   const [params,setParams]=useSearchParams()
   const id=params.get('id')??''
   const selected=model.folders.find(f=>f.id===id)
-  const [modal,setModal]=useState<'collection'|'folder'|'tags'|'add'>()
+  const [modal,setModal]=useState<'collection'|'folder'|'tags'|'add'|'rename'>()
   const [name,setName]=useState('')
   const [parent,setParent]=useState('')
   const [add,setAdd]=useState('')
   const [tagToRemove,setTagToRemove]=useState('')
-  const show=(which:NonNullable<typeof modal>)=>{setName('');setParent(which==='folder'?id:'');setAdd('');setTagToRemove('');setModal(which)}
+  const show=(which:NonNullable<typeof modal>)=>{setName(which==='rename'?selected?.name??'':'');setParent(which==='folder'?id:'');setAdd('');setTagToRemove('');setModal(which)}
   function create() {
+    if (modal==='rename'&&selected&&name.trim()) {
+      update(m=>({...m,folders:m.folders.map(f=>f.id===id?{...f,name:name.trim()}:f)}))
+      setModal(undefined)
+      toast('分类名称已更新')
+      return
+    }
     if (!name.trim()|| (modal!=='folder'&&modal!=='collection')) return
     const folder:FolderModel={id:uid(),name:name.trim(),parent,color:parent?'amber':'violet',type:modal}
     update(m=>({...m,folders:[...m.folders,folder]}))
@@ -126,13 +132,17 @@ export function Collections() {
     <div className="collection-layout">
       <section className="panel folder-tree"><h2>分类</h2><button className={'folder-link '+(!id?'selected':'')} onClick={()=>setParams({})}><LayoutGrid size={16}/> 全部资料</button>{folders('',0)}</section>
       <section className="panel" onDragOver={e=>{if(selected)e.preventDefault()}} onDrop={e=>{e.preventDefault();if(selected)move(e.dataTransfer.getData('text/plain'))}}>
-        <div className="section-head"><h2>{selected?.name||'全部资料'}</h2>{selected&&<Button onClick={()=>show('add')}><Plus size={16}/> 添加已有资料</Button>}</div>
+        <div className="section-head"><h2>{selected?.name||'全部资料'}</h2>{selected&&<div className="toolbar">
+          <Button onClick={()=>show('rename')}>重命名</Button>
+          <Button onClick={()=>show('add')}><Plus size={16}/> 添加已有资料</Button>
+          <Link to={'/agent?collection='+encodeURIComponent(selected.id)} className="cw-button primary">在 Agent 中研究</Link>
+        </div>}</div>
         {model.folders.filter(f=>f.parent===id&&id).map(f=><button type="button" className="item-row full-row" onClick={()=>setParams({id:f.id})} key={f.id}><Folder size={19}/><strong className="row-label">{f.name}</strong><ChevronRight size={16}/></button>)}
         {sources.map(s=><SourceRow source={s} key={s.id}/>)}
         {!sources.length&&<Empty title="这个分类还没有资料" text="你可以添加已有资料，或从知识库批量移动。">{selected&&<Button onClick={()=>show('add')}>添加资料</Button>}</Empty>}
       </section>
     </div>
-    {modal&&<Modal title={modal==='tags'?'管理标签':modal==='add'?'添加已有资料':modal==='folder'?'新建文件夹':'新建收藏夹'} description="这些更改会保存在当前浏览器的原型工作区。" close={()=>setModal(undefined)}>
+    {modal&&<Modal title={modal==='rename'?'重命名分类':modal==='tags'?'管理标签':modal==='add'?'添加已有资料':modal==='folder'?'新建文件夹':'新建收藏夹'} description="这些更改会保存在当前浏览器的原型工作区。" close={()=>setModal(undefined)}>
       {modal==='tags'?<>
         <div className="tag-list">{model.tags.map(tag=><Button key={tag} aria-pressed={tagToRemove===tag} onClick={()=>setTagToRemove(tagToRemove===tag?'':tag)}>{tag}</Button>)}</div>
         {tagToRemove&&<div className="toolbar"><Button variant="danger" onClick={()=>{update(m=>({...m,tags:m.tags.filter(t=>t!==tagToRemove),sources:m.sources.map(s=>({...s,tags:s.tags.filter(t=>t!==tagToRemove)})),notes:m.notes.map(n=>({...n,tags:n.tags.filter(t=>t!==tagToRemove)}))}));setTagToRemove('');toast('已移除标签')}}>确认移除标签「{tagToRemove}」</Button></div>}
@@ -144,7 +154,7 @@ export function Collections() {
       </>:<form onSubmit={e=>{e.preventDefault();create()}}>
         <label className="field"><span>名称</span><input autoFocus value={name} onChange={e=>setName(e.target.value)} maxLength={60}/></label>
         {modal==='folder'&&<label className="field"><span>上级分类</span><Select label="上级分类" value={parent} change={setParent}><option value="">顶层</option>{model.folders.map(f=><option value={f.id} key={f.id}>{f.name}</option>)}</Select></label>}
-        <div className="modal-actions"><Button type="submit" variant="primary" disabled={!name.trim()}>创建</Button></div>
+        <div className="modal-actions"><Button type="submit" variant="primary" disabled={!name.trim()}>{modal==='rename'?'保存名称':'创建'}</Button></div>
       </form>}
     </Modal>}
   </>

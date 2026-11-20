@@ -1,4 +1,21 @@
-import { initial, type Model, type Note, type Run, type Source, type Task, type Target, type Destination, type Format } from './mock'
+import { initial, type Model, type Note, type Run, type Source, type Task, type Target, type Destination, type Format, type Folder } from './mock'
+
+export const maxResearchSources = 6
+
+export function folderScope(folders: Folder[], root: string) {
+  const ids = new Set([root])
+  const pending = [root]
+  while (pending.length) {
+    const parent = pending.pop()
+    for (const folder of folders) {
+      if (folder.parent === parent && !ids.has(folder.id)) {
+        ids.add(folder.id)
+        pending.push(folder.id)
+      }
+    }
+  }
+  return ids
+}
 
 const key = 'citeweave-high-fidelity-v1'
 export const uid = () => crypto.randomUUID()
@@ -38,7 +55,7 @@ export function advance(model: Model, now: number): Model {
 }
 export function makeRun(query: string, sources: Source[]): Run {
   const goal = /obsidian|vault/i.test(query) ? 'obsidian' : /github|仓库|提交/i.test(query) ? 'github' : /本地|指定目录/i.test(query) ? 'local' : undefined
-  const evidence = sources.slice(0,6).map(s => {
+  const evidence = sources.map(s => {
     const segment = s.segments[Math.min(1, s.segments.length - 1)]
     return segment ? '- **' + s.title + '** · ' + segment.text : '- **' + s.title + '** · 暂无可用片段。'
   }).join('\n')

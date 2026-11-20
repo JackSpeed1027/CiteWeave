@@ -106,3 +106,5 @@ kbd{display:inline-flex;align-items:center;gap:2px;border:1px solid var(--line);
 .task-progress progress::-moz-progress-bar{background:var(--purple)}
 .cover-small.bili{background:#302045 url('/prototype/weave-hero.webp') 72% 55%/cover}
 .cover-small.bili svg{display:none}
+.collection-layout .section-head{flex-wrap:wrap}
+.collection-layout .section-head h2{overflow-wrap:anywhere}
