@@ -1,5 +1,7 @@
 # 架构
 
+本地已加入独立的 Python AI Engine，入口为 FastAPI 的 `GET /healthz`。该路径报告 HTTP 进程状态。模型和 Java–Python 业务调用契约将随第一条联合功能交付。端口与启动顺序见[本地开发环境](DEVELOPMENT.md)。
+
 浏览器中的 React + TypeScript 页面经 Vite 代理访问 Java API。Spring Boot 将 HTTP 请求交给资料服务，解析组件提取正文，JdbcClient 把提取结果写入 PostgreSQL。Flyway 在启动时应用版本化迁移。
 
 | 方法与路径 | 职责 |

@@ -1,5 +1,7 @@
 # CiteWeave
 
+正式开发从[本机环境与启动指南](docs/DEVELOPMENT.md)开始。Java、Python 智能体与前端的并行安排见[正式开发计划](docs/IMPLEMENTATION_PLAN.md)，代码和协作规范见 [AGENTS.md](AGENTS.md)。
+
 高保真交互原型可独立启动。在 `web` 内运行 `npm.cmd run prototype` 后打开 [原型工作台](http://127.0.0.1:5175/prototype.html)。使用说明、六条验收路线与模拟范围见[原型交付说明](docs/PROTOTYPE.md)。
 
 [原型使用手册](docs/PROTOTYPE_USER_MANUAL.md)提供各功能的场景、操作案例、边界和常见问题。

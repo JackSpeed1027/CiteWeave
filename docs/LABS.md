@@ -20,3 +20,32 @@ $afterInvalid = (Invoke-RestMethod $api).Count
 ```
 
 记录两个时间区间、错误状态和消息、三次计数。追踪 SourceService.upload，指出哪里抛错以及哪一步因此未发生。你的观察与解释等待回填。
+
+## 实验 02 · 通过四个端口理解应用边界
+
+**目标**。区分浏览器入口、Java 业务、PostgreSQL 和 Python HTTP 边界。记录观测并用实际文件说明调用路线。
+
+在 [本地开发环境](DEVELOPMENT.md)启动服务。先在仓库根目录执行以下只读检查。输出只包含 HTTP 状态与 PostgreSQL 健康情况。
+
+```powershell
+docker compose -f infra/compose.yaml ps
+curl.exe -sS -o NUL -w "Vite page %{http_code}\n" http://127.0.0.1:5173/
+curl.exe -sS -o NUL -w "Vite API %{http_code}\n" http://127.0.0.1:5173/api/sources
+curl.exe -sS -o NUL -w "Java API %{http_code}\n" http://127.0.0.1:8087/api/sources
+curl.exe -sS http://127.0.0.1:8091/healthz
+```
+
+在自己新开的终端使用 8092 启动一份临时 Python 进程。若该端口已被占用，改用明确空闲的回环端口。运行下列命令后，从另一终端探测 8092 健康路径和 Vite API。再到临时终端按 Ctrl+C，重复检查。整个过程无需停止开始前运行的服务，也无需操作数据库内容。
+
+```powershell
+Set-Location ai
+uv run --locked uvicorn citeweave_ai.app:app --app-dir src --host 127.0.0.1 --port 8092
+```
+
+| 观察点 | 第一次 | 停止自己的临时 Python 后 |
+| --- | --- | --- |
+| 8092 的 `/healthz` | 待记录 | 待记录 |
+| 5173 的 `/api/sources` | 待记录 | 待记录 |
+| Compose health | 待记录 | 待记录 |
+
+走读 `web/vite.config.ts`、`SourceController`、`SourceRepository`、`ai/src/citeweave_ai/app.py`。提交实际输出后回答 KNOWLEDGE_CHECK 的环境问题。
