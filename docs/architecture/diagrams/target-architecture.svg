@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1320" viewBox="0 0 1600 1320" role="img" aria-labelledby="title desc">
+<title id="title">CiteWeave 正式版目标架构</title><desc id="desc">展示输入、Web、Java、Python、同步证据契约、异步任务和数据边界，以及首个真实字幕到引用和笔记的闭环。</desc>
+<defs><marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2557a8"/></marker><marker id="arrow-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#6646a6"/></marker><marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#13746a"/></marker><marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#92601c"/></marker></defs>
+<g font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif">
+<rect width="100%" height="100%" fill="#f4f6fb"/>
+<rect x="0" y="0" width="1600" height="128" rx="0" fill="#182747" stroke="none" />
+<rect x="0" y="126" width="1600" height="4" rx="0" fill="#7960bd" stroke="none" />
+<text x="42" y="42" font-size="17" fill="#a9bee3" font-weight="650" text-anchor="start">CITEWEAVE  /  系统架构</text>
+<text x="42" y="85" font-size="34" fill="#ffffff" font-weight="750" text-anchor="start">正式版目标架构</text>
+<text x="43" y="110" font-size="17" fill="#c5d5f2" font-weight="450" text-anchor="start">产品交互、权威业务数据、AI 计算与可恢复任务的职责划分</text>
+<rect x="1394" y="48" width="159" height="32" rx="16" fill="#f0eafd" stroke="none" />
+<text x="1473.5" y="70" font-size="15" fill="#6646a6" font-weight="700" text-anchor="middle">设计目标</text>
+<rect x="42" y="153" width="1516" height="142" rx="20" fill="#e9f1ff" stroke="none" />
+<text x="62" y="188" font-size="24" fill="#2557a8" font-weight="750" text-anchor="start">用户体验层</text>
+<text x="1538" y="187" font-size="15" fill="#2557a8" font-weight="600" text-anchor="end">浏览器只访问 Java 业务 API</text>
+<rect x="433" y="203" width="652" height="75" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="446" y="218" width="4" height="45" rx="2" fill="#2557a8" stroke="none" />
+<text x="461" y="234" font-size="21" fill="#162137" font-weight="700" text-anchor="start">React 工作台</text>
+<text x="461" y="260" font-size="17" fill="#465871" font-weight="500" text-anchor="start">导入与任务进度 · 资料研究 · 引用定位 · 笔记与导出</text>
+<path d="M749 295 V335" fill="none" stroke="#2557a8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<text x="763" y="322" font-size="15" fill="#2557a8" font-weight="650" text-anchor="start">HTTP / JSON · Problem Details</text>
+<rect x="42" y="338" width="350" height="322" rx="20" fill="#fff0da" stroke="none" />
+<text x="62" y="373" font-size="24" fill="#92601c" font-weight="750" text-anchor="start">资料来源</text>
+<text x="372" y="372" font-size="15" fill="#92601c" font-weight="600" text-anchor="end">输入与定位</text>
+<rect x="61" y="392" width="312" height="73" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="74" y="407" width="4" height="43" rx="2" fill="#92601c" stroke="none" />
+<text x="89" y="423" font-size="21" fill="#162137" font-weight="700" text-anchor="start">Bilibili</text>
+<text x="89" y="449" font-size="17" fill="#465871" font-weight="500" text-anchor="start">BV / AV、分 P 与可用字幕</text>
+<rect x="61" y="480" width="312" height="73" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="74" y="495" width="4" height="43" rx="2" fill="#92601c" stroke="none" />
+<text x="89" y="511" font-size="21" fill="#162137" font-weight="700" text-anchor="start">本机视频</text>
+<text x="89" y="537" font-size="17" fill="#465871" font-weight="500" text-anchor="start">FFprobe 元数据与附带字幕</text>
+<rect x="61" y="568" width="312" height="73" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="74" y="583" width="4" height="43" rx="2" fill="#92601c" stroke="none" />
+<text x="89" y="599" font-size="21" fill="#162137" font-weight="700" text-anchor="start">文档与网页</text>
+<text x="89" y="625" font-size="17" fill="#465871" font-weight="500" text-anchor="start">正文、页码或段落定位</text>
+<path d="M373 428 H411 V604 H373 M373 516 H411" fill="none" stroke="#92601c" stroke-width="2.6" stroke-linejoin="round" />
+
+<rect x="432" y="338" width="626" height="322" rx="20" fill="#e9f1ff" stroke="none" />
+<text x="452" y="373" font-size="24" fill="#2557a8" font-weight="750" text-anchor="start">Java Core · Spring Boot</text>
+<text x="1038" y="372" font-size="15" fill="#2557a8" font-weight="600" text-anchor="end">业务主数据与发布权</text>
+<rect x="454" y="392" width="582" height="103" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="467" y="407" width="4" height="73" rx="2" fill="#2557a8" stroke="none" />
+<text x="482" y="423" font-size="21" fill="#162137" font-weight="700" text-anchor="start">资料与导入边界</text>
+<text x="482" y="449" font-size="17" fill="#465871" font-weight="500" text-anchor="start">平台 Adapter 识别来源；字幕 Strategy 按条件选择</text>
+<text x="482" y="473" font-size="17" fill="#465871" font-weight="500" text-anchor="start">校验文件与访问范围，维护资料、版本、轨道与证据</text>
+<rect x="454" y="523" width="278" height="110" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="467" y="538" width="4" height="80" rx="2" fill="#2557a8" stroke="none" />
+<text x="482" y="554" font-size="21" fill="#162137" font-weight="700" text-anchor="start">任务与一致性</text>
+<text x="482" y="580" font-size="17" fill="#465871" font-weight="500" text-anchor="start">状态机、幂等、失败恢复</text>
+<text x="482" y="604" font-size="17" fill="#465871" font-weight="500" text-anchor="start">核验完成状态与版本发布</text>
+<rect x="758" y="523" width="278" height="110" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="771" y="538" width="4" height="80" rx="2" fill="#2557a8" stroke="none" />
+<text x="786" y="554" font-size="21" fill="#162137" font-weight="700" text-anchor="start">笔记与交付</text>
+<text x="786" y="580" font-size="17" fill="#465871" font-weight="500" text-anchor="start">验证 AI 返回的证据 ID</text>
+<text x="786" y="604" font-size="17" fill="#465871" font-weight="500" text-anchor="start">保存笔记、收藏与导出</text>
+<path d="M593 495 V523" fill="none" stroke="#2557a8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<path d="M888 495 V523" fill="none" stroke="#2557a8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<rect x="1098" y="338" width="460" height="322" rx="20" fill="#f0eafd" stroke="none" />
+<text x="1118" y="373" font-size="24" fill="#6646a6" font-weight="750" text-anchor="start">Python AI Engine</text>
+<text x="1538" y="372" font-size="15" fill="#6646a6" font-weight="600" text-anchor="end">计算与生成</text>
+<rect x="1121" y="392" width="414" height="103" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="1134" y="407" width="4" height="73" rx="2" fill="#6646a6" stroke="none" />
+<text x="1149" y="423" font-size="21" fill="#162137" font-weight="700" text-anchor="start">证据处理与模型 Adapter</text>
+<text x="1149" y="449" font-size="17" fill="#465871" font-weight="500" text-anchor="start">音频与授权 ASR、分块、预算管理</text>
+<text x="1149" y="473" font-size="17" fill="#465871" font-weight="500" text-anchor="start">调用模型，校验结构化草稿</text>
+<rect x="1121" y="523" width="414" height="110" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="1134" y="538" width="4" height="80" rx="2" fill="#6646a6" stroke="none" />
+<text x="1149" y="554" font-size="21" fill="#162137" font-weight="700" text-anchor="start">检索与 Agent</text>
+<text x="1149" y="580" font-size="17" fill="#465871" font-weight="500" text-anchor="start">按生效版本检索，只读访问证据</text>
+<text x="1149" y="604" font-size="17" fill="#465871" font-weight="500" text-anchor="start">多步研究、Checkpoint、返回引用</text>
+<path d="M1328 495 V523" fill="none" stroke="#6646a6" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-purple)"/>
+<path d="M1036 431 H1121" fill="none" stroke="#6646a6" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-purple)"/>
+<text x="1078" y="423" font-size="15" fill="#6646a6" font-weight="650" text-anchor="middle">证据</text>
+<path d="M1121 468 H1036" fill="none" stroke="#6646a6" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-purple)"/>
+<text x="1078" y="488" font-size="15" fill="#6646a6" font-weight="650" text-anchor="middle">结果</text>
+<rect x="42" y="700" width="1516" height="173" rx="20" fill="#fff0da" stroke="none" />
+<text x="62" y="735" font-size="24" fill="#92601c" font-weight="750" text-anchor="start">异步处理与恢复</text>
+<text x="1538" y="734" font-size="15" fill="#92601c" font-weight="600" text-anchor="end">计划按阶段引入 · 虚线表示异步链路</text>
+<rect x="65" y="752" width="456" height="96" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="78" y="767" width="4" height="66" rx="2" fill="#92601c" stroke="none" />
+<text x="93" y="783" font-size="21" fill="#162137" font-weight="700" text-anchor="start">事务内保存任务与 Outbox</text>
+<text x="93" y="809" font-size="17" fill="#465871" font-weight="500" text-anchor="start">Java 保存状态及发布意图</text>
+<text x="93" y="833" font-size="17" fill="#465871" font-weight="500" text-anchor="start">重试从已经持久化的状态继续</text>
+<rect x="573" y="752" width="405" height="96" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="586" y="767" width="4" height="66" rx="2" fill="#92601c" stroke="none" />
+<text x="601" y="783" font-size="21" fill="#162137" font-weight="700" text-anchor="start">RabbitMQ 分发</text>
+<text x="601" y="809" font-size="17" fill="#465871" font-weight="500" text-anchor="start">发布者确认、消费确认与重投递</text>
+<rect x="1030" y="752" width="505" height="96" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="1043" y="767" width="4" height="66" rx="2" fill="#92601c" stroke="none" />
+<text x="1058" y="783" font-size="21" fill="#162137" font-weight="700" text-anchor="start">Worker 执行</text>
+<text x="1058" y="809" font-size="17" fill="#465871" font-weight="500" text-anchor="start">租约与幂等写入，持久化阶段产物</text>
+<text x="1058" y="833" font-size="17" fill="#465871" font-weight="500" text-anchor="start">任务完成或失败后返回状态</text>
+<path d="M608 633 V684 H430 V752" fill="none" stroke="#92601c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 6" marker-end="url(#arrow-amber)"/>
+<path d="M521 799 H573" fill="none" stroke="#92601c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 6" marker-end="url(#arrow-amber)"/>
+<path d="M978 799 H1030" fill="none" stroke="#92601c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 6" marker-end="url(#arrow-amber)"/>
+<path d="M1535 799 H1574 V578 H1558" fill="none" stroke="#92601c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 6" marker-end="url(#arrow-amber)"/>
+<rect x="42" y="902" width="1516" height="192" rx="20" fill="#e1f5ef" stroke="none" />
+<text x="62" y="937" font-size="24" fill="#13746a" font-weight="750" text-anchor="start">数据与外部依赖</text>
+<text x="1538" y="936" font-size="15" fill="#13746a" font-weight="600" text-anchor="end">按模块明确访问方式与权威状态</text>
+<rect x="65" y="953" width="350" height="113" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="78" y="968" width="4" height="83" rx="2" fill="#13746a" stroke="none" />
+<text x="93" y="984" font-size="21" fill="#162137" font-weight="700" text-anchor="start">PostgreSQL</text>
+<text x="93" y="1010" font-size="17" fill="#465871" font-weight="500" text-anchor="start">Java 写业务记录与生效版本</text>
+<text x="93" y="1034" font-size="17" fill="#465871" font-weight="500" text-anchor="start">Flyway 管理迁移</text>
+<rect x="434" y="953" width="350" height="113" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="447" y="968" width="4" height="83" rx="2" fill="#13746a" stroke="none" />
+<text x="462" y="984" font-size="21" fill="#162137" font-weight="700" text-anchor="start">受控文件存储</text>
+<text x="462" y="1010" font-size="17" fill="#465871" font-weight="500" text-anchor="start">保存原始素材与派生产物</text>
+<text x="462" y="1034" font-size="17" fill="#465871" font-weight="500" text-anchor="start">数据库保存引用和版本</text>
+<rect x="803" y="953" width="350" height="113" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="816" y="968" width="4" height="83" rx="2" fill="#13746a" stroke="none" />
+<text x="831" y="984" font-size="21" fill="#162137" font-weight="700" text-anchor="start">版本化检索索引</text>
+<text x="831" y="1010" font-size="17" fill="#465871" font-weight="500" text-anchor="start">全文与向量；绑定生效版本</text>
+<text x="831" y="1034" font-size="17" fill="#465871" font-weight="500" text-anchor="start">Python 按版本读取证据</text>
+<rect x="1172" y="953" width="363" height="113" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="1185" y="968" width="4" height="83" rx="2" fill="#13746a" stroke="none" />
+<text x="1200" y="984" font-size="21" fill="#162137" font-weight="700" text-anchor="start">OpenAI-compatible 模型</text>
+<text x="1200" y="1010" font-size="17" fill="#465871" font-weight="500" text-anchor="start">由 Python 供应商 Adapter 调用</text>
+<text x="1200" y="1034" font-size="17" fill="#465871" font-weight="500" text-anchor="start">配置超时、预算与错误分类</text>
+<rect x="42" y="1121" width="1516" height="149" rx="18" fill="#ffffff" stroke="#d8e0ed" />
+<text x="64" y="1157" font-size="22" fill="#162137" font-weight="750" text-anchor="start">首个端到端里程碑</text>
+<rect x="64" y="1174" width="257" height="72" rx="11" fill="#e9f1ff" stroke="none" />
+<text x="78" y="1204" font-size="19" fill="#2557a8" font-weight="750" text-anchor="start">导入真实字幕</text>
+<text x="78" y="1228" font-size="15" fill="#465871" font-weight="500" text-anchor="start">Java</text>
+<path d="M321 1210 H361" fill="none" stroke="#2557a8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<rect x="362" y="1174" width="257" height="72" rx="11" fill="#e9f1ff" stroke="none" />
+<text x="376" y="1204" font-size="19" fill="#2557a8" font-weight="750" text-anchor="start">读取版本化证据</text>
+<text x="376" y="1228" font-size="15" fill="#465871" font-weight="500" text-anchor="start">Java</text>
+<path d="M619 1210 H659" fill="none" stroke="#2557a8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<rect x="660" y="1174" width="257" height="72" rx="11" fill="#f0eafd" stroke="none" />
+<text x="674" y="1204" font-size="19" fill="#6646a6" font-weight="750" text-anchor="start">生成摘要及引用</text>
+<text x="674" y="1228" font-size="15" fill="#465871" font-weight="500" text-anchor="start">Python</text>
+<path d="M917 1210 H957" fill="none" stroke="#2557a8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<rect x="958" y="1174" width="257" height="72" rx="11" fill="#e9f1ff" stroke="none" />
+<text x="972" y="1204" font-size="19" fill="#2557a8" font-weight="750" text-anchor="start">校验并跳转时间轴</text>
+<text x="972" y="1228" font-size="15" fill="#465871" font-weight="500" text-anchor="start">Java / Web</text>
+<path d="M1215 1210 H1255" fill="none" stroke="#2557a8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<rect x="1256" y="1174" width="257" height="72" rx="11" fill="#e9f1ff" stroke="none" />
+<text x="1270" y="1204" font-size="19" fill="#2557a8" font-weight="750" text-anchor="start">保存笔记</text>
+<text x="1270" y="1228" font-size="15" fill="#465871" font-weight="500" text-anchor="start">Java / Web</text>
+<text x="42" y="1296" font-size="15" fill="#65778e" font-weight="500" text-anchor="start">正式版目标 · 访问受限时可上传字幕 · 其余模块按实际验收推进</text>
+<text x="1558" y="1296" font-size="15" fill="#65778e" font-weight="700" text-anchor="end">CiteWeave</text>
+<path d="M411 449 H454" fill="none" stroke="#92601c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-amber)"/>
+</g>
+</svg>

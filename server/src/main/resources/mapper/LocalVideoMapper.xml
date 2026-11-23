@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.citeweave.video.local.LocalVideoMapper">
+    <!-- 同工作区、同字节内容由唯一键合并。已有记录的文件名与版本保持稳定。 -->
+    <insert id="insertIfAbsent">
+        INSERT INTO local_videos
+            (id, workspace_key, filename, sha256, size_bytes, duration_ms, width, height, video_codec, audio_codec)
+        VALUES (#{video.id}, #{video.workspaceKey}, #{video.filename}, #{video.sha256},
+            #{video.sizeBytes}, #{video.durationMs}, #{video.width}, #{video.height},
+            #{video.videoCodec}, #{video.audioCodec,jdbcType=VARCHAR})
+        ON CONFLICT (workspace_key, sha256) DO NOTHING
+    </insert>
+    <select id="recent" resultType="dev.citeweave.video.local.LocalVideoMapper$VideoRow">
+        SELECT id, filename, sha256, size_bytes, duration_ms, width, height, video_codec, audio_codec, created_at
+        FROM local_videos WHERE workspace_key = #{workspace}
+        ORDER BY created_at DESC, id DESC LIMIT #{limit}
+    </select>
+</mapper>

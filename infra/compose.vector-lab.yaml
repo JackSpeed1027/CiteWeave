@@ -1,0 +1,20 @@
+name: citeweave-vector-lab
+services:
+  postgres:
+    image: pgvector/pgvector:0.8.7-pg17-bookworm
+    environment:
+      POSTGRES_DB: citeweave_vector_lab
+      POSTGRES_USER: vector_lab
+      POSTGRES_PASSWORD: ${CITEWEAVE_VECTOR_LAB_PASSWORD:-citeweave_vector_lab_local}
+    ports:
+      - "127.0.0.1:${CITEWEAVE_VECTOR_LAB_PORT:-15436}:5432"
+    volumes:
+      - pgvector-lab-data:/var/lib/postgresql/data
+      - ./vector-lab/bootstrap.sql:/docker-entrypoint-initdb.d/10-vector-lab.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "psql -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\" -tAc \"SELECT 1 FROM pg_extension WHERE extname='vector'\" | grep -qx 1"]
+      interval: 2s
+      timeout: 3s
+      retries: 25
+volumes:
+  pgvector-lab-data:

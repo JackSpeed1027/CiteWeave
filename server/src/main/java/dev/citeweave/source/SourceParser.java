@@ -1,9 +1,11 @@
 package dev.citeweave.source;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.nio.ByteBuffer;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import org.apache.pdfbox.Loader;
@@ -14,7 +16,8 @@ import static dev.citeweave.source.SourceException.Code.*;
 
 @Component
 class SourceParser {
-    record Parsed(String kind, String content) {}
+    record PdfPage(int number, String content) {}
+    record Parsed(String kind, String content, List<PdfPage> pdfPages) {}
     private static final int MAX_CONTENT = 500_000;
     private static final int MAX_PDF_PAGES = 500;
 
@@ -29,11 +32,12 @@ class SourceParser {
             default -> throw new SourceException(SOURCE_FILE_TYPE_UNSUPPORTED,
                     "支持 PDF、TXT、Markdown、SRT 和 VTT 文件。");
         };
-        String content = text(kind.equals("PDF") ? pdf(bytes) : utf8(bytes));
+        if (kind.equals("PDF")) return pdf(bytes);
+        String content = text(utf8(bytes));
         if (isTranscript(kind)) {
             transcript(kind, content);
         }
-        return new Parsed(kind, content);
+        return new Parsed(kind, content, List.of());
     }
 
     boolean isTranscript(String kind) {
@@ -68,7 +72,8 @@ class SourceParser {
         }
     }
 
-    private String pdf(byte[] bytes) {
+    /** 一次解析同时保留聚合正文和带原始页码的文本；空白页不作为证据。 */
+    private Parsed pdf(byte[] bytes) {
         try (var document = Loader.loadPDF(bytes)) {
             if (!document.getCurrentAccessPermission().canExtractContent()) {
                 throw invalid("该 PDF 禁止提取正文。");
@@ -76,9 +81,26 @@ class SourceParser {
             if (document.getNumberOfPages() > MAX_PDF_PAGES) {
                 throw invalid("PDF 不能超过 500 页。");
             }
-            var stripper = new PDFTextStripper();
+            var pageOutput = new StringWriter();
+            var pages = new ArrayList<PdfPage>();
+            var stripper = new PDFTextStripper() {
+                private int pageContentLength;
+
+                @Override
+                protected void writePage() throws IOException {
+                    int start = pageOutput.getBuffer().length();
+                    super.writePage();
+                    String page = pageOutput.getBuffer().substring(start).strip();
+                    pageContentLength += page.length();
+                    if (pageContentLength > MAX_CONTENT) {
+                        throw invalid("正文须为有效文本，长度不能超过 50 万字符。");
+                    }
+                    if (!page.isEmpty()) pages.add(new PdfPage(getCurrentPageNo(), page));
+                }
+            };
             stripper.setSortByPosition(true);
-            return stripper.getText(document);
+            stripper.writeText(document, pageOutput);
+            return new Parsed("PDF", text(pageOutput.toString()), List.copyOf(pages));
         } catch (InvalidPasswordException exception) {
             throw invalid("该 PDF 受密码保护，请上传可读取的版本。");
         } catch (IOException exception) {

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="971" viewBox="0 0 1600 971" role="img" aria-labelledby="title desc">
+<title id="title">CiteWeave 当前运行架构</title><desc id="desc">正式前端经 Vite 代理访问 Java 资料和字幕 API，Java 读写 PostgreSQL。交互原型和 Python 健康检查各自独立。</desc>
+<defs><marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2557a8"/></marker><marker id="arrow-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#6646a6"/></marker><marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#13746a"/></marker><marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#92601c"/></marker></defs>
+<g font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif">
+<rect width="100%" height="100%" fill="#f4f6fb"/>
+<rect x="0" y="0" width="1600" height="128" rx="0" fill="#182747" stroke="none" />
+<rect x="0" y="126" width="1600" height="4" rx="0" fill="#5180db" stroke="none" />
+<text x="42" y="42" font-size="17" fill="#a9bee3" font-weight="650" text-anchor="start">CITEWEAVE  /  系统架构</text>
+<text x="42" y="85" font-size="34" fill="#ffffff" font-weight="750" text-anchor="start">当前运行架构</text>
+<text x="43" y="110" font-size="17" fill="#c5d5f2" font-weight="450" text-anchor="start">浏览器、Java 资料服务和 PostgreSQL 已联通 · Python 可单独启动</text>
+<rect x="1394" y="48" width="159" height="32" rx="16" fill="#e9f1ff" stroke="none" />
+<text x="1473.5" y="70" font-size="15" fill="#2557a8" font-weight="700" text-anchor="middle">当前已实现</text>
+<rect x="42" y="156" width="1050" height="170" rx="20" fill="#e9f1ff" stroke="none" />
+<text x="62" y="191" font-size="24" fill="#2557a8" font-weight="750" text-anchor="start">浏览器与正式前端</text>
+<text x="1072" y="190" font-size="15" fill="#2557a8" font-weight="600" text-anchor="end">本机开发入口</text>
+<rect x="66" y="209" width="1002" height="94" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="79" y="224" width="4" height="64" rx="2" fill="#2557a8" stroke="none" />
+<text x="94" y="240" font-size="21" fill="#162137" font-weight="700" text-anchor="start">React + TypeScript · 127.0.0.1:5173</text>
+<text x="94" y="266" font-size="17" fill="#465871" font-weight="500" text-anchor="start">资料列表、文件上传、粘贴文本与资料详情 · Vite 将 /api 转发给 Java</text>
+<rect x="42" y="374" width="1050" height="194" rx="20" fill="#e9f1ff" stroke="none" />
+<text x="62" y="409" font-size="24" fill="#2557a8" font-weight="750" text-anchor="start">Java Core · Spring Boot</text>
+<text x="1072" y="408" font-size="15" fill="#2557a8" font-weight="600" text-anchor="end">127.0.0.1:8087</text>
+<rect x="66" y="432" width="298" height="102" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="79" y="447" width="4" height="72" rx="2" fill="#2557a8" stroke="none" />
+<text x="94" y="463" font-size="21" fill="#162137" font-weight="700" text-anchor="start">HTTP 接口</text>
+<text x="94" y="489" font-size="17" fill="#465871" font-weight="500" text-anchor="start">SourceController</text>
+<text x="94" y="513" font-size="17" fill="#465871" font-weight="500" text-anchor="start">JSON / multipart</text>
+<rect x="409" y="432" width="298" height="102" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="422" y="447" width="4" height="72" rx="2" fill="#2557a8" stroke="none" />
+<text x="437" y="463" font-size="21" fill="#162137" font-weight="700" text-anchor="start">资料与字幕处理</text>
+<text x="437" y="489" font-size="17" fill="#465871" font-weight="500" text-anchor="start">SourceService / Parser</text>
+<text x="437" y="513" font-size="17" fill="#465871" font-weight="500" text-anchor="start">PDF、文本、SRT / VTT</text>
+<rect x="752" y="432" width="316" height="102" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="765" y="447" width="4" height="72" rx="2" fill="#2557a8" stroke="none" />
+<text x="780" y="463" font-size="21" fill="#162137" font-weight="700" text-anchor="start">持久化与错误映射</text>
+<text x="780" y="489" font-size="17" fill="#465871" font-weight="500" text-anchor="start">JdbcClient · 参数绑定</text>
+<text x="780" y="513" font-size="17" fill="#465871" font-weight="500" text-anchor="start">异常 → Problem Details</text>
+<path d="M364 483 H409" fill="none" stroke="#2557a8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<path d="M707 483 H752" fill="none" stroke="#2557a8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<path d="M569 326 V374" fill="none" stroke="#2557a8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<text x="583" y="355" font-size="15" fill="#2557a8" font-weight="650" text-anchor="start">HTTP · /api/sources</text>
+<rect x="42" y="619" width="1050" height="157" rx="20" fill="#e1f5ef" stroke="none" />
+<text x="62" y="654" font-size="24" fill="#13746a" font-weight="750" text-anchor="start">PostgreSQL · 17</text>
+<text x="1072" y="653" font-size="15" fill="#13746a" font-weight="600" text-anchor="end">仅用于本地开发卷</text>
+<rect x="66" y="670" width="490" height="83" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="79" y="685" width="4" height="53" rx="2" fill="#13746a" stroke="none" />
+<text x="94" y="701" font-size="21" fill="#162137" font-weight="700" text-anchor="start">sources 表</text>
+<text x="94" y="727" font-size="17" fill="#465871" font-weight="500" text-anchor="start">资料元数据与提取正文存入同一行</text>
+<rect x="578" y="670" width="490" height="83" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="591" y="685" width="4" height="53" rx="2" fill="#13746a" stroke="none" />
+<text x="606" y="701" font-size="21" fill="#162137" font-weight="700" text-anchor="start">Flyway 迁移</text>
+<text x="606" y="727" font-size="17" fill="#465871" font-weight="500" text-anchor="start">Java 启动时校验并应用已定义版本</text>
+<path d="M895 534 V619" fill="none" stroke="#13746a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-green)"/>
+<text x="909" y="601" font-size="15" fill="#13746a" font-weight="650" text-anchor="start">数据库读写 · 5434</text>
+<rect x="1131" y="156" width="427" height="244" rx="20" fill="#f0eafd" stroke="none" />
+<text x="1151" y="191" font-size="24" fill="#6646a6" font-weight="750" text-anchor="start">已验收交互原型</text>
+<text x="1538" y="190" font-size="15" fill="#6646a6" font-weight="600" text-anchor="end">独立入口</text>
+<rect x="1152" y="217" width="385" height="83" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="1165" y="232" width="4" height="53" rx="2" fill="#6646a6" stroke="none" />
+<text x="1180" y="248" font-size="21" fill="#162137" font-weight="700" text-anchor="start">React 原型 · 5175</text>
+<text x="1180" y="274" font-size="17" fill="#465871" font-weight="500" text-anchor="start">导入、研究、笔记与导出体验</text>
+<rect x="1152" y="316" width="385" height="67" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="1165" y="331" width="4" height="37" rx="2" fill="#6646a6" stroke="none" />
+<text x="1180" y="347" font-size="21" fill="#162137" font-weight="700" text-anchor="start">浏览器本地存储</text>
+<path d="M1344 300 V316" fill="none" stroke="#6646a6" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-purple)"/>
+<rect x="1131" y="430" width="427" height="245" rx="20" fill="#f0eafd" stroke="none" />
+<text x="1151" y="465" font-size="24" fill="#6646a6" font-weight="750" text-anchor="start">Python AI Engine</text>
+<text x="1538" y="464" font-size="15" fill="#6646a6" font-weight="600" text-anchor="end">独立进程</text>
+<rect x="1152" y="491" width="385" height="104" rx="14" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="1165" y="506" width="4" height="74" rx="2" fill="#6646a6" stroke="none" />
+<text x="1180" y="522" font-size="21" fill="#162137" font-weight="700" text-anchor="start">FastAPI · 8091</text>
+<text x="1180" y="548" font-size="17" fill="#465871" font-weight="500" text-anchor="start">GET /healthz · HTTP 进程检查</text>
+<text x="1180" y="572" font-size="17" fill="#465871" font-weight="500" text-anchor="start">uv 依赖锁与健康端点测试</text>
+<text x="1154" y="632" font-size="16" fill="#465871" font-weight="500" text-anchor="start">模型调用与 Java–Python 业务联调待接入。</text>
+<rect x="1131" y="700" width="427" height="76" rx="15" fill="#ffffff" stroke="#d8e0ed" />
+<text x="1151" y="730" font-size="17" fill="#162137" font-weight="700" text-anchor="start">连线说明</text>
+<text x="1151" y="754" font-size="16" fill="#465871" font-weight="500" text-anchor="start">箭头表示当前已存在的调用或依赖。</text>
+<rect x="42" y="806" width="1516" height="116" rx="17" fill="#ffffff" stroke="#d8e0ed" />
+<rect x="65" y="826" width="121" height="32" rx="16" fill="#e1f5ef" stroke="none" />
+<text x="125.5" y="848" font-size="15" fill="#13746a" font-weight="700" text-anchor="middle">关键行为</text>
+<text x="204" y="848" font-size="19" fill="#162137" font-weight="650" text-anchor="start">导入校验通过后写入；资料详情读库；字幕轨道按需解析并返回毫秒片段。</text>
+<text x="65" y="889" font-size="17" fill="#465871" font-weight="500" text-anchor="start">成功创建返回 201 与 Location。拒绝资料、请求解析和上传超限以 HTTP 状态与稳定错误码区分。</text>
+<text x="42" y="947" font-size="15" fill="#65778e" font-weight="500" text-anchor="start">现状基于仓库中的运行入口与资料 API 契约</text>
+<text x="1558" y="947" font-size="15" fill="#65778e" font-weight="700" text-anchor="end">CiteWeave</text>
+</g>
+</svg>

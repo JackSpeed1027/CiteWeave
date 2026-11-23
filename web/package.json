@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "vite",
     "prototype": "vite --port 5175",
-    "build": "tsc --noEmit && vite build",
+    "build": "npm run progress:check && tsc --noEmit && vite build",
+    "progress:check": "node scripts/progress.mjs",
+    "progress:write": "node scripts/progress.mjs --write",
+    "progress:test": "node --test scripts/progress.test.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

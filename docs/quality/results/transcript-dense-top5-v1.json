@@ -1,0 +1,1980 @@
+{
+  "model": "BAAI/bge-small-zh-v1.5",
+  "artifactDirectoryName": "bge-small-zh-46fbe35fd4374a00fee7de77dfddaeb6dd6a2c59",
+  "dimensions": 512,
+  "maxTokens": 512,
+  "threads": 4,
+  "queryPrefix": "为这个句子生成表示以用于检索相关文章：",
+  "modelLoadMs": 6589.498799992725,
+  "artifactSha256": {
+    "model_optimized.onnx": "1294ea4b6331115a353d81f96b85e8c8d7fdcc284453d5b2fab5b016230aad38",
+    "tokenizer.json": "48cea5d44424912a6fd1ea647bf4fe50b55ab8b1e5879c3275f80e339e8fae26"
+  },
+  "results": [
+    {
+      "dataset": "transcript-v1",
+      "topK": 5,
+      "passageEncodeMs": 231.40869999770075,
+      "queries": 42,
+      "chunks": 27,
+      "denseQueryMs": {
+        "p50": 9.379399998579174,
+        "p95": 11.812100012321025
+      },
+      "metrics": {
+        "lexical": {
+          "answerable": 30,
+          "fullyCovered": 23,
+          "macroRecall": 0.7666666666666667,
+          "unanswerable": 12,
+          "unanswerableWithCandidates": 6
+        },
+        "dense": {
+          "answerable": 30,
+          "fullyCovered": 29,
+          "macroRecall": 0.9666666666666667,
+          "unanswerable": 12,
+          "unanswerableWithCandidates": 12
+        },
+        "hybrid": {
+          "answerable": 30,
+          "fullyCovered": 29,
+          "macroRecall": 0.9666666666666667,
+          "unanswerable": 12,
+          "unanswerableWithCandidates": 12
+        }
+      },
+      "byCategory": {
+        "literal": {
+          "lexical": {
+            "answerable": 12,
+            "fullyCovered": 12,
+            "macroRecall": 1.0,
+            "unanswerable": 0,
+            "unanswerableWithCandidates": 0
+          },
+          "dense": {
+            "answerable": 12,
+            "fullyCovered": 12,
+            "macroRecall": 1.0,
+            "unanswerable": 0,
+            "unanswerableWithCandidates": 0
+          },
+          "hybrid": {
+            "answerable": 12,
+            "fullyCovered": 12,
+            "macroRecall": 1.0,
+            "unanswerable": 0,
+            "unanswerableWithCandidates": 0
+          }
+        },
+        "paraphrase": {
+          "lexical": {
+            "answerable": 12,
+            "fullyCovered": 5,
+            "macroRecall": 0.4166666666666667,
+            "unanswerable": 0,
+            "unanswerableWithCandidates": 0
+          },
+          "dense": {
+            "answerable": 12,
+            "fullyCovered": 11,
+            "macroRecall": 0.9166666666666666,
+            "unanswerable": 0,
+            "unanswerableWithCandidates": 0
+          },
+          "hybrid": {
+            "answerable": 12,
+            "fullyCovered": 11,
+            "macroRecall": 0.9166666666666666,
+            "unanswerable": 0,
+            "unanswerableWithCandidates": 0
+          }
+        },
+        "multi-evidence": {
+          "lexical": {
+            "answerable": 6,
+            "fullyCovered": 6,
+            "macroRecall": 1.0,
+            "unanswerable": 0,
+            "unanswerableWithCandidates": 0
+          },
+          "dense": {
+            "answerable": 6,
+            "fullyCovered": 6,
+            "macroRecall": 1.0,
+            "unanswerable": 0,
+            "unanswerableWithCandidates": 0
+          },
+          "hybrid": {
+            "answerable": 6,
+            "fullyCovered": 6,
+            "macroRecall": 1.0,
+            "unanswerable": 0,
+            "unanswerableWithCandidates": 0
+          }
+        },
+        "distractor": {
+          "lexical": {
+            "answerable": 0,
+            "fullyCovered": 0,
+            "macroRecall": null,
+            "unanswerable": 6,
+            "unanswerableWithCandidates": 6
+          },
+          "dense": {
+            "answerable": 0,
+            "fullyCovered": 0,
+            "macroRecall": null,
+            "unanswerable": 6,
+            "unanswerableWithCandidates": 6
+          },
+          "hybrid": {
+            "answerable": 0,
+            "fullyCovered": 0,
+            "macroRecall": null,
+            "unanswerable": 6,
+            "unanswerableWithCandidates": 6
+          }
+        },
+        "out-of-topic": {
+          "lexical": {
+            "answerable": 0,
+            "fullyCovered": 0,
+            "macroRecall": null,
+            "unanswerable": 6,
+            "unanswerableWithCandidates": 0
+          },
+          "dense": {
+            "answerable": 0,
+            "fullyCovered": 0,
+            "macroRecall": null,
+            "unanswerable": 6,
+            "unanswerableWithCandidates": 6
+          },
+          "hybrid": {
+            "answerable": 0,
+            "fullyCovered": 0,
+            "macroRecall": null,
+            "unanswerable": 6,
+            "unanswerableWithCandidates": 6
+          }
+        }
+      },
+      "cases": [
+        {
+          "id": "P01-L",
+          "category": "literal",
+          "source": "backend",
+          "required": 1,
+          "found": {
+            "lexical": 1,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.7106982469558716,
+          "candidates": {
+            "lexical": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:2",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:3"
+            ],
+            "dense": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:2",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:3"
+            ],
+            "hybrid": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:2",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:3",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8"
+            ]
+          }
+        },
+        {
+          "id": "P01-P",
+          "category": "paraphrase",
+          "source": "backend",
+          "required": 1,
+          "found": {
+            "lexical": 1,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.5560685396194458,
+          "candidates": {
+            "lexical": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1"
+            ],
+            "dense": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:11",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:4"
+            ],
+            "hybrid": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:11",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:4"
+            ]
+          }
+        },
+        {
+          "id": "P02-L",
+          "category": "literal",
+          "source": "backend",
+          "required": 1,
+          "found": {
+            "lexical": 1,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.7208943367004395,
+          "candidates": {
+            "lexical": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:4",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:9"
+            ],
+            "dense": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:4",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:14",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:13",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:10"
+            ],
+            "hybrid": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:4",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:14",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:9",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:13"
+            ]
+          }
+        },
+        {
+          "id": "P02-P",
+          "category": "paraphrase",
+          "source": "backend",
+          "required": 1,
+          "found": {
+            "lexical": 0,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.45139265060424805,
+          "candidates": {
+            "lexical": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:14"
+            ],
+            "dense": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:4",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:14",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:11"
+            ],
+            "hybrid": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:14",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:4",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:11"
+            ]
+          }
+        },
+        {
+          "id": "P03-L",
+          "category": "literal",
+          "source": "backend",
+          "required": 1,
+          "found": {
+            "lexical": 1,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.6863925457000732,
+          "candidates": {
+            "lexical": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:7",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8"
+            ],
+            "dense": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:7",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:9",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:2"
+            ],
+            "hybrid": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:7",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:9",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:2"
+            ]
+          }
+        },
+        {
+          "id": "P03-P",
+          "category": "paraphrase",
+          "source": "backend",
+          "required": 1,
+          "found": {
+            "lexical": 1,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.4554119408130646,
+          "candidates": {
+            "lexical": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:7",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:11"
+            ],
+            "dense": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:11",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:6",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:12",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:7",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5"
+            ],
+            "hybrid": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:11",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:7",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:6",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:12",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5"
+            ]
+          }
+        },
+        {
+          "id": "P04-L",
+          "category": "literal",
+          "source": "backend",
+          "required": 1,
+          "found": {
+            "lexical": 1,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.6147677898406982,
+          "candidates": {
+            "lexical": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8"
+            ],
+            "dense": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:10",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:9",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:4"
+            ],
+            "hybrid": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:10",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:9",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:4"
+            ]
+          }
+        },
+        {
+          "id": "P04-P",
+          "category": "paraphrase",
+          "source": "backend",
+          "required": 1,
+          "found": {
+            "lexical": 1,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.4942103624343872,
+          "candidates": {
+            "lexical": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8"
+            ],
+            "dense": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:13",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:12",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:9"
+            ],
+            "hybrid": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:13",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:12",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1"
+            ]
+          }
+        },
+        {
+          "id": "P05-L",
+          "category": "literal",
+          "source": "backend",
+          "required": 1,
+          "found": {
+            "lexical": 1,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.7234066724777222,
+          "candidates": {
+            "lexical": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:12"
+            ],
+            "dense": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:12",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:3",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:9",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:11",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:14"
+            ],
+            "hybrid": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:12",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:3",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:9",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:11",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:14"
+            ]
+          }
+        },
+        {
+          "id": "P05-P",
+          "category": "paraphrase",
+          "source": "backend",
+          "required": 1,
+          "found": {
+            "lexical": 0,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.5307933688163757,
+          "candidates": {
+            "lexical": [],
+            "dense": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:12",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:3",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:13",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5"
+            ],
+            "hybrid": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:12",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:3",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:13",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5"
+            ]
+          }
+        },
+        {
+          "id": "P06-L",
+          "category": "literal",
+          "source": "backend",
+          "required": 1,
+          "found": {
+            "lexical": 1,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.6859394907951355,
+          "candidates": {
+            "lexical": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:14",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:4",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:9"
+            ],
+            "dense": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:4",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:14",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:13",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1"
+            ],
+            "hybrid": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:14",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:4",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:9",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:13"
+            ]
+          }
+        },
+        {
+          "id": "P06-P",
+          "category": "paraphrase",
+          "source": "backend",
+          "required": 1,
+          "found": {
+            "lexical": 1,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.5087843537330627,
+          "candidates": {
+            "lexical": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:2",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:4",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:6",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:14"
+            ],
+            "dense": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:4",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:13",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:14",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1"
+            ],
+            "hybrid": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:4",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:14",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:2",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:6"
+            ]
+          }
+        },
+        {
+          "id": "P07-L",
+          "category": "literal",
+          "source": "index",
+          "required": 1,
+          "found": {
+            "lexical": 1,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.6885696649551392,
+          "candidates": {
+            "lexical": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:1",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:10",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:11",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:12"
+            ],
+            "dense": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:1",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:10",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:8",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:11"
+            ],
+            "hybrid": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:1",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:10",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:11",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:8"
+            ]
+          }
+        },
+        {
+          "id": "P07-P",
+          "category": "paraphrase",
+          "source": "index",
+          "required": 1,
+          "found": {
+            "lexical": 0,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.48398149013519287,
+          "candidates": {
+            "lexical": [],
+            "dense": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:1",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:8",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:10",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5"
+            ],
+            "hybrid": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:1",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:8",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:10",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5"
+            ]
+          }
+        },
+        {
+          "id": "P08-L",
+          "category": "literal",
+          "source": "index",
+          "required": 1,
+          "found": {
+            "lexical": 1,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.7674961090087891,
+          "candidates": {
+            "lexical": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:1",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:4",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:7"
+            ],
+            "dense": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:4",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:11",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:7"
+            ],
+            "hybrid": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:4",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:7",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:1"
+            ]
+          }
+        },
+        {
+          "id": "P08-P",
+          "category": "paraphrase",
+          "source": "index",
+          "required": 1,
+          "found": {
+            "lexical": 0,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.5729715824127197,
+          "candidates": {
+            "lexical": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:6",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:12"
+            ],
+            "dense": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:4",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:11",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:12",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:9"
+            ],
+            "hybrid": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:12",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:6",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:4"
+            ]
+          }
+        },
+        {
+          "id": "P09-L",
+          "category": "literal",
+          "source": "index",
+          "required": 1,
+          "found": {
+            "lexical": 1,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.6932122707366943,
+          "candidates": {
+            "lexical": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:4",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:11"
+            ],
+            "dense": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:4",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:1",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:8"
+            ],
+            "hybrid": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:4",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:11",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:1"
+            ]
+          }
+        },
+        {
+          "id": "P09-P",
+          "category": "paraphrase",
+          "source": "index",
+          "required": 1,
+          "found": {
+            "lexical": 0,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.5305060148239136,
+          "candidates": {
+            "lexical": [],
+            "dense": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:1",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:10",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:8"
+            ],
+            "hybrid": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:1",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:10",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:8"
+            ]
+          }
+        },
+        {
+          "id": "P10-L",
+          "category": "literal",
+          "source": "index",
+          "required": 1,
+          "found": {
+            "lexical": 1,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.6454359889030457,
+          "candidates": {
+            "lexical": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:6",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:13"
+            ],
+            "dense": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:6",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:13",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:8",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5"
+            ],
+            "hybrid": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:6",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:13",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:8",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5"
+            ]
+          }
+        },
+        {
+          "id": "P10-P",
+          "category": "paraphrase",
+          "source": "index",
+          "required": 1,
+          "found": {
+            "lexical": 1,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.5763457417488098,
+          "candidates": {
+            "lexical": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:6",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:13"
+            ],
+            "dense": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:6",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:13",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:8",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5"
+            ],
+            "hybrid": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:6",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:13",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:8",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5"
+            ]
+          }
+        },
+        {
+          "id": "P11-L",
+          "category": "literal",
+          "source": "index",
+          "required": 1,
+          "found": {
+            "lexical": 1,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.693433940410614,
+          "candidates": {
+            "lexical": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:7",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:9",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:12",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:6",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:8"
+            ],
+            "dense": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:7",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:9",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:12",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:8",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:13"
+            ],
+            "hybrid": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:7",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:9",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:12",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:8",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:6"
+            ]
+          }
+        },
+        {
+          "id": "P11-P",
+          "category": "paraphrase",
+          "source": "index",
+          "required": 1,
+          "found": {
+            "lexical": 0,
+            "dense": 0,
+            "hybrid": 0
+          },
+          "denseTopScore": 0.4572608470916748,
+          "candidates": {
+            "lexical": [],
+            "dense": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:13",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:6",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:4",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:10"
+            ],
+            "hybrid": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:13",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:6",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:4",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:10"
+            ]
+          }
+        },
+        {
+          "id": "P12-L",
+          "category": "literal",
+          "source": "index",
+          "required": 1,
+          "found": {
+            "lexical": 1,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.7282240986824036,
+          "candidates": {
+            "lexical": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:10",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:1",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2"
+            ],
+            "dense": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:10",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:1",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:8",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:9"
+            ],
+            "hybrid": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:10",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:1",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:8",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:9"
+            ]
+          }
+        },
+        {
+          "id": "P12-P",
+          "category": "paraphrase",
+          "source": "index",
+          "required": 1,
+          "found": {
+            "lexical": 0,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.5808823108673096,
+          "candidates": {
+            "lexical": [],
+            "dense": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:10",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:9",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:13",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:8"
+            ],
+            "hybrid": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:10",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:9",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:13",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:8"
+            ]
+          }
+        },
+        {
+          "id": "M01",
+          "category": "multi-evidence",
+          "source": "backend",
+          "required": 2,
+          "found": {
+            "lexical": 2,
+            "dense": 2,
+            "hybrid": 2
+          },
+          "denseTopScore": 0.676308810710907,
+          "candidates": {
+            "lexical": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:2",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:3"
+            ],
+            "dense": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:2",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:12"
+            ],
+            "hybrid": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:2",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:3",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5"
+            ]
+          }
+        },
+        {
+          "id": "M02",
+          "category": "multi-evidence",
+          "source": "backend",
+          "required": 2,
+          "found": {
+            "lexical": 2,
+            "dense": 2,
+            "hybrid": 2
+          },
+          "denseTopScore": 0.6983584761619568,
+          "candidates": {
+            "lexical": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:4",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:9",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:14"
+            ],
+            "dense": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:4",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:14",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:13",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1"
+            ],
+            "hybrid": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:4",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:14",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:9",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:13"
+            ]
+          }
+        },
+        {
+          "id": "M03",
+          "category": "multi-evidence",
+          "source": "backend",
+          "required": 2,
+          "found": {
+            "lexical": 2,
+            "dense": 2,
+            "hybrid": 2
+          },
+          "denseTopScore": 0.6695970296859741,
+          "candidates": {
+            "lexical": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:7",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1"
+            ],
+            "dense": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:7",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:9",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:10"
+            ],
+            "hybrid": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:7",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:9",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:10"
+            ]
+          }
+        },
+        {
+          "id": "M04",
+          "category": "multi-evidence",
+          "source": "index",
+          "required": 2,
+          "found": {
+            "lexical": 2,
+            "dense": 2,
+            "hybrid": 2
+          },
+          "denseTopScore": 0.6809518337249756,
+          "candidates": {
+            "lexical": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:4",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:11"
+            ],
+            "dense": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:4",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:7",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:11"
+            ],
+            "hybrid": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:4",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:11",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:7"
+            ]
+          }
+        },
+        {
+          "id": "M05",
+          "category": "multi-evidence",
+          "source": "index",
+          "required": 2,
+          "found": {
+            "lexical": 2,
+            "dense": 2,
+            "hybrid": 2
+          },
+          "denseTopScore": 0.6479136943817139,
+          "candidates": {
+            "lexical": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:8",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:1",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:6",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:10"
+            ],
+            "dense": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:8",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:10",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:1",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:6"
+            ],
+            "hybrid": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:8",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:1",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:10",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:6"
+            ]
+          }
+        },
+        {
+          "id": "M06",
+          "category": "multi-evidence",
+          "source": "index",
+          "required": 2,
+          "found": {
+            "lexical": 2,
+            "dense": 2,
+            "hybrid": 2
+          },
+          "denseTopScore": 0.7461340427398682,
+          "candidates": {
+            "lexical": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:9",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:7",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:8",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:12"
+            ],
+            "dense": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:9",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:7",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:12",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:4"
+            ],
+            "hybrid": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:9",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:7",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:12",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:8"
+            ]
+          }
+        },
+        {
+          "id": "D01",
+          "category": "distractor",
+          "source": "backend",
+          "required": 0,
+          "found": {
+            "lexical": 0,
+            "dense": 0,
+            "hybrid": 0
+          },
+          "denseTopScore": 0.5994092226028442,
+          "candidates": {
+            "lexical": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:2",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:3"
+            ],
+            "dense": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:2",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:3",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:7"
+            ],
+            "hybrid": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:2",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:3",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:7"
+            ]
+          }
+        },
+        {
+          "id": "D02",
+          "category": "distractor",
+          "source": "backend",
+          "required": 0,
+          "found": {
+            "lexical": 0,
+            "dense": 0,
+            "hybrid": 0
+          },
+          "denseTopScore": 0.5524364709854126,
+          "candidates": {
+            "lexical": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:4",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:9"
+            ],
+            "dense": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:4",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:9",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:14",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:7",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:3"
+            ],
+            "hybrid": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:4",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:9",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:5",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:14",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:7"
+            ]
+          }
+        },
+        {
+          "id": "D03",
+          "category": "distractor",
+          "source": "backend",
+          "required": 0,
+          "found": {
+            "lexical": 0,
+            "dense": 0,
+            "hybrid": 0
+          },
+          "denseTopScore": 0.5477844476699829,
+          "candidates": {
+            "lexical": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:11",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8"
+            ],
+            "dense": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:11",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:3",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:7",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:9"
+            ],
+            "hybrid": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:11",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:8",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:3",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:7",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:9"
+            ]
+          }
+        },
+        {
+          "id": "D04",
+          "category": "distractor",
+          "source": "index",
+          "required": 0,
+          "found": {
+            "lexical": 0,
+            "dense": 0,
+            "hybrid": 0
+          },
+          "denseTopScore": 0.6822692155838013,
+          "candidates": {
+            "lexical": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:10",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:1",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:7"
+            ],
+            "dense": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:10",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:1",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:9",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:7"
+            ],
+            "hybrid": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:10",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:1",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:7",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3"
+            ]
+          }
+        },
+        {
+          "id": "D05",
+          "category": "distractor",
+          "source": "index",
+          "required": 0,
+          "found": {
+            "lexical": 0,
+            "dense": 0,
+            "hybrid": 0
+          },
+          "denseTopScore": 0.6126187443733215,
+          "candidates": {
+            "lexical": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:12",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:6",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:8"
+            ],
+            "dense": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:12",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:11",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:9"
+            ],
+            "hybrid": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:12",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:11"
+            ]
+          }
+        },
+        {
+          "id": "D06",
+          "category": "distractor",
+          "source": "index",
+          "required": 0,
+          "found": {
+            "lexical": 0,
+            "dense": 0,
+            "hybrid": 0
+          },
+          "denseTopScore": 0.593029260635376,
+          "candidates": {
+            "lexical": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:4",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:11"
+            ],
+            "dense": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:4",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:6",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:11"
+            ],
+            "hybrid": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:4",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:11",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:6"
+            ]
+          }
+        },
+        {
+          "id": "N01",
+          "category": "out-of-topic",
+          "source": "backend",
+          "required": 0,
+          "found": {
+            "lexical": 0,
+            "dense": 0,
+            "hybrid": 0
+          },
+          "denseTopScore": 0.3653837740421295,
+          "candidates": {
+            "lexical": [],
+            "dense": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:12",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:14",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:11",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:6",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:3"
+            ],
+            "hybrid": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:12",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:14",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:11",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:6",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:3"
+            ]
+          }
+        },
+        {
+          "id": "N02",
+          "category": "out-of-topic",
+          "source": "backend",
+          "required": 0,
+          "found": {
+            "lexical": 0,
+            "dense": 0,
+            "hybrid": 0
+          },
+          "denseTopScore": 0.38862133026123047,
+          "candidates": {
+            "lexical": [],
+            "dense": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:11",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:14",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:6",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:10",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:2"
+            ],
+            "hybrid": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:11",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:14",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:6",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:10",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:2"
+            ]
+          }
+        },
+        {
+          "id": "N03",
+          "category": "out-of-topic",
+          "source": "backend",
+          "required": 0,
+          "found": {
+            "lexical": 0,
+            "dense": 0,
+            "hybrid": 0
+          },
+          "denseTopScore": 0.20674242079257965,
+          "candidates": {
+            "lexical": [],
+            "dense": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:6",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:12",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:2",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:9",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1"
+            ],
+            "hybrid": [
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:6",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:12",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:2",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:9",
+              "1:b1285745328224d5f169f4e35512bcdd5dc5b0e92d23d6cfd00eb9cd29d39082:1"
+            ]
+          }
+        },
+        {
+          "id": "N04",
+          "category": "out-of-topic",
+          "source": "index",
+          "required": 0,
+          "found": {
+            "lexical": 0,
+            "dense": 0,
+            "hybrid": 0
+          },
+          "denseTopScore": 0.3220617175102234,
+          "candidates": {
+            "lexical": [],
+            "dense": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:7",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:4",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:13",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:11"
+            ],
+            "hybrid": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:7",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:4",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:3",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:13",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:11"
+            ]
+          }
+        },
+        {
+          "id": "N05",
+          "category": "out-of-topic",
+          "source": "index",
+          "required": 0,
+          "found": {
+            "lexical": 0,
+            "dense": 0,
+            "hybrid": 0
+          },
+          "denseTopScore": 0.3034413158893585,
+          "candidates": {
+            "lexical": [],
+            "dense": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:4",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:7",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:12"
+            ],
+            "hybrid": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:4",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:7",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:12"
+            ]
+          }
+        },
+        {
+          "id": "N06",
+          "category": "out-of-topic",
+          "source": "index",
+          "required": 0,
+          "found": {
+            "lexical": 0,
+            "dense": 0,
+            "hybrid": 0
+          },
+          "denseTopScore": 0.3356015980243683,
+          "candidates": {
+            "lexical": [],
+            "dense": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:13",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:6",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:4",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2"
+            ],
+            "hybrid": [
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:13",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:6",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:4",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:5",
+              "2:138ecda38547909ed830fe5d5409769fa983e810bbb99631b6b50218413f830f:2"
+            ]
+          }
+        }
+      ],
+      "inputSha256": "e38397ff419ec38dd88ba9370e201097f000a9fbed367c1c547ef2988eab5551"
+    },
+    {
+      "dataset": "transcript-alias-holdout-v1",
+      "topK": 5,
+      "passageEncodeMs": 32.55210001952946,
+      "queries": 12,
+      "chunks": 8,
+      "denseQueryMs": {
+        "p50": 8.521099982317537,
+        "p95": 9.478399995714426
+      },
+      "metrics": {
+        "lexical": {
+          "answerable": 8,
+          "fullyCovered": 3,
+          "macroRecall": 0.375,
+          "unanswerable": 4,
+          "unanswerableWithCandidates": 0
+        },
+        "dense": {
+          "answerable": 8,
+          "fullyCovered": 7,
+          "macroRecall": 0.875,
+          "unanswerable": 4,
+          "unanswerableWithCandidates": 4
+        },
+        "hybrid": {
+          "answerable": 8,
+          "fullyCovered": 7,
+          "macroRecall": 0.875,
+          "unanswerable": 4,
+          "unanswerableWithCandidates": 4
+        }
+      },
+      "byCategory": {
+        "paraphrase": {
+          "lexical": {
+            "answerable": 6,
+            "fullyCovered": 1,
+            "macroRecall": 0.16666666666666666,
+            "unanswerable": 0,
+            "unanswerableWithCandidates": 0
+          },
+          "dense": {
+            "answerable": 6,
+            "fullyCovered": 5,
+            "macroRecall": 0.8333333333333334,
+            "unanswerable": 0,
+            "unanswerableWithCandidates": 0
+          },
+          "hybrid": {
+            "answerable": 6,
+            "fullyCovered": 5,
+            "macroRecall": 0.8333333333333334,
+            "unanswerable": 0,
+            "unanswerableWithCandidates": 0
+          }
+        },
+        "literal": {
+          "lexical": {
+            "answerable": 2,
+            "fullyCovered": 2,
+            "macroRecall": 1.0,
+            "unanswerable": 0,
+            "unanswerableWithCandidates": 0
+          },
+          "dense": {
+            "answerable": 2,
+            "fullyCovered": 2,
+            "macroRecall": 1.0,
+            "unanswerable": 0,
+            "unanswerableWithCandidates": 0
+          },
+          "hybrid": {
+            "answerable": 2,
+            "fullyCovered": 2,
+            "macroRecall": 1.0,
+            "unanswerable": 0,
+            "unanswerableWithCandidates": 0
+          }
+        },
+        "unanswerable": {
+          "lexical": {
+            "answerable": 0,
+            "fullyCovered": 0,
+            "macroRecall": null,
+            "unanswerable": 4,
+            "unanswerableWithCandidates": 0
+          },
+          "dense": {
+            "answerable": 0,
+            "fullyCovered": 0,
+            "macroRecall": null,
+            "unanswerable": 4,
+            "unanswerableWithCandidates": 4
+          },
+          "hybrid": {
+            "answerable": 0,
+            "fullyCovered": 0,
+            "macroRecall": null,
+            "unanswerable": 4,
+            "unanswerableWithCandidates": 4
+          }
+        }
+      },
+      "cases": [
+        {
+          "id": "H01",
+          "category": "paraphrase",
+          "source": "operations",
+          "required": 1,
+          "found": {
+            "lexical": 0,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.5420358777046204,
+          "candidates": {
+            "lexical": [],
+            "dense": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:1",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:3",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:5",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:7",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:8"
+            ],
+            "hybrid": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:1",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:3",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:5",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:7",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:8"
+            ]
+          }
+        },
+        {
+          "id": "H02",
+          "category": "paraphrase",
+          "source": "operations",
+          "required": 1,
+          "found": {
+            "lexical": 0,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.4395383298397064,
+          "candidates": {
+            "lexical": [],
+            "dense": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:2",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:3",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:8",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:6",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:7"
+            ],
+            "hybrid": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:2",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:3",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:8",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:6",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:7"
+            ]
+          }
+        },
+        {
+          "id": "H03",
+          "category": "paraphrase",
+          "source": "operations",
+          "required": 1,
+          "found": {
+            "lexical": 0,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.4914114475250244,
+          "candidates": {
+            "lexical": [],
+            "dense": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:3",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:1",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:7",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:6",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:4"
+            ],
+            "hybrid": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:3",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:1",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:7",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:6",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:4"
+            ]
+          }
+        },
+        {
+          "id": "H04",
+          "category": "paraphrase",
+          "source": "operations",
+          "required": 1,
+          "found": {
+            "lexical": 0,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.4669864773750305,
+          "candidates": {
+            "lexical": [],
+            "dense": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:7",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:3",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:5",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:2",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:8"
+            ],
+            "hybrid": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:7",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:3",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:5",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:2",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:8"
+            ]
+          }
+        },
+        {
+          "id": "H05",
+          "category": "paraphrase",
+          "source": "operations",
+          "required": 1,
+          "found": {
+            "lexical": 1,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.46649882197380066,
+          "candidates": {
+            "lexical": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:4"
+            ],
+            "dense": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:4",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:3",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:5",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:2",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:1"
+            ],
+            "hybrid": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:4",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:3",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:5",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:2",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:1"
+            ]
+          }
+        },
+        {
+          "id": "H06",
+          "category": "literal",
+          "source": "operations",
+          "required": 1,
+          "found": {
+            "lexical": 1,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.6586629748344421,
+          "candidates": {
+            "lexical": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:6"
+            ],
+            "dense": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:6",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:3",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:4",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:1",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:7"
+            ],
+            "hybrid": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:6",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:3",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:4",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:1",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:7"
+            ]
+          }
+        },
+        {
+          "id": "H07",
+          "category": "paraphrase",
+          "source": "operations",
+          "required": 1,
+          "found": {
+            "lexical": 0,
+            "dense": 0,
+            "hybrid": 0
+          },
+          "denseTopScore": 0.3962813913822174,
+          "candidates": {
+            "lexical": [],
+            "dense": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:7",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:2",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:5",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:6",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:3"
+            ],
+            "hybrid": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:7",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:2",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:5",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:6",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:3"
+            ]
+          }
+        },
+        {
+          "id": "H08",
+          "category": "literal",
+          "source": "operations",
+          "required": 1,
+          "found": {
+            "lexical": 1,
+            "dense": 1,
+            "hybrid": 1
+          },
+          "denseTopScore": 0.6922807693481445,
+          "candidates": {
+            "lexical": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:7"
+            ],
+            "dense": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:7",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:5",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:1",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:3",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:2"
+            ],
+            "hybrid": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:7",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:5",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:1",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:3",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:2"
+            ]
+          }
+        },
+        {
+          "id": "H09",
+          "category": "unanswerable",
+          "source": "operations",
+          "required": 0,
+          "found": {
+            "lexical": 0,
+            "dense": 0,
+            "hybrid": 0
+          },
+          "denseTopScore": 0.44511839747428894,
+          "candidates": {
+            "lexical": [],
+            "dense": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:1",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:7",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:5",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:3",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:2"
+            ],
+            "hybrid": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:1",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:7",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:5",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:3",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:2"
+            ]
+          }
+        },
+        {
+          "id": "H10",
+          "category": "unanswerable",
+          "source": "operations",
+          "required": 0,
+          "found": {
+            "lexical": 0,
+            "dense": 0,
+            "hybrid": 0
+          },
+          "denseTopScore": 0.444668710231781,
+          "candidates": {
+            "lexical": [],
+            "dense": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:2",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:8",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:1",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:3",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:6"
+            ],
+            "hybrid": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:2",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:8",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:1",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:3",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:6"
+            ]
+          }
+        },
+        {
+          "id": "H11",
+          "category": "unanswerable",
+          "source": "operations",
+          "required": 0,
+          "found": {
+            "lexical": 0,
+            "dense": 0,
+            "hybrid": 0
+          },
+          "denseTopScore": 0.4013057351112366,
+          "candidates": {
+            "lexical": [],
+            "dense": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:3",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:1",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:7",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:2",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:5"
+            ],
+            "hybrid": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:3",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:1",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:7",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:2",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:5"
+            ]
+          }
+        },
+        {
+          "id": "H12",
+          "category": "unanswerable",
+          "source": "operations",
+          "required": 0,
+          "found": {
+            "lexical": 0,
+            "dense": 0,
+            "hybrid": 0
+          },
+          "denseTopScore": 0.30256152153015137,
+          "candidates": {
+            "lexical": [],
+            "dense": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:5",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:2",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:1",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:3",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:6"
+            ],
+            "hybrid": [
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:5",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:2",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:1",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:3",
+              "1:d48b9195ae6fd0118a8fedc43b6a4bdfe1edfdfbffbb86595a1cf490bc7506fa:6"
+            ]
+          }
+        }
+      ],
+      "inputSha256": "7f20be03a85c848c1bd89d92bc38f0a67cff4bd7b5359648f062896bea6baaab"
+    }
+  ]
+}

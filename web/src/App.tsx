@@ -2,9 +2,19 @@ import { useEffect, useRef, useState } from 'react'
 import type { FormEvent, ReactNode } from 'react'
 import {
   AlignLeft, AudioLines, BookOpen, ChevronRight, CircleAlert, CircleCheck, FileText,
-  FolderOpen, House, Layers3, LoaderCircle, Plus, Search, UploadCloud, X,
+  FolderOpen, House, Layers3, ListChecks, LoaderCircle, NotebookPen, Plus, Search, Star, UploadCloud, Video, X,
 } from 'lucide-react'
 import { api } from './api'
+import { BilibiliImport } from './BilibiliImport'
+import { DocumentReader } from './DocumentReader'
+import { LocalVideoImport } from './LocalVideoImport'
+import { NotesPage } from './NotesPage'
+import { MultiTranscriptPage, SavedResearchPage } from './MultiTranscriptPage'
+import { ResearchNotePage } from './ResearchNotePage'
+import { SourceFavorite } from './SourceFavorite'
+import { TranscriptSummary } from './TranscriptSummary'
+import { TaskPage } from './TaskPage'
+import { ProjectProgress } from './progress/ProjectProgress'
 import type { Kind, Source, SourceDetail } from './api'
 
 const kinds: Record<Kind, string> = {
@@ -16,6 +26,7 @@ const errorText = (error: unknown) => error instanceof Error ? error.message : '
 const hash = () => window.location.hash.slice(1) || '/'
 const sourceLink = (id: number) => '#/sources/' + id
 const subtitle = (kind: Kind) => kind === 'SRT' || kind === 'VTT'
+const hasParagraphs = (kind: Kind) => kind === 'TEXT' || kind === 'TXT' || kind === 'MARKDOWN'
 
 function useLoad<T>(load: () => Promise<T>) {
   const [value, setValue] = useState<T>()
@@ -66,14 +77,18 @@ function SourceList({ sources }: { sources: Source[] }) {
   </div>
 }
 
-function ListStatus({ state, sources, filtered }: {
+function ListStatus({ state, sources, filtered, favoritesOnly }: {
   state: ReturnType<typeof useLoad<Source[]>>
   sources: Source[]
   filtered?: boolean
+  favoritesOnly?: boolean
 }) {
   if (state.error) return <div className="panel-body"><Notice>{state.error}</Notice>
     <button className="button secondary" onClick={state.retry}>重新加载</button></div>
   if (!state.value) return <Loading />
+  if (favoritesOnly && !state.value.length) return <div className="empty">
+    <Star size={25} aria-hidden="true" /><h3>还没有收藏资料</h3><p>打开资料详情即可收藏。</p>
+  </div>
   return sources.length ? <SourceList sources={sources} /> : <Empty filtered={filtered} />
 }
 
@@ -106,6 +121,7 @@ function Dashboard() {
         <div><div className="stat-label">{label}</div><strong>{state.value ? count : '—'}</strong></div>
       </div>)}
     </div>
+    <ProjectProgress />
     <section className="panel">
       <div className="panel-heading"><h2>最近导入</h2><a href="#/library">查看资料库</a></div>
       <ListStatus state={state} sources={sources.slice(0, 5)} />
@@ -114,7 +130,8 @@ function Dashboard() {
 }
 
 function Library() {
-  const state = useLoad(api.list)
+  const [favoritesOnly, setFavoritesOnly] = useState(false)
+  const state = useLoad(favoritesOnly ? api.favorites : api.list)
   const [query, setQuery] = useState('')
   const [kind, setKind] = useState('')
   const term = query.trim().toLocaleLowerCase()
@@ -124,7 +141,10 @@ function Library() {
   return <>
     <div className="page-heading">
       <div><h1>资料库</h1><p>集中查找和阅读已导入的资料。</p></div>
-      <a className="button primary" href="#/import"><Plus size={18} /> 导入资料</a>
+      <div className="library-actions">
+        <a className="button secondary" href="#/transcript-questions">跨资料问答</a>
+        <a className="button primary" href="#/import"><Plus size={18} /> 导入资料</a>
+      </div>
     </div>
     <section className="panel">
       <div className="filters">
@@ -134,15 +154,17 @@ function Library() {
           <option value="">全部类型</option>
           {Object.entries(kinds).map(([key, label]) => <option key={key} value={key}>{label}</option>)}
         </select>
+        <button type="button" aria-pressed={favoritesOnly} className="button secondary favorite-filter"
+          onClick={() => setFavoritesOnly((value) => !value)}><Star size={16} aria-hidden="true" /> 仅收藏</button>
         {state.value && <span className="muted count">{sources.length} 份资料</span>}
       </div>
-      <ListStatus state={state} sources={sources} filtered={Boolean(term || kind)} />
+      <ListStatus state={state} sources={sources} filtered={Boolean(term || kind)} favoritesOnly={favoritesOnly} />
     </section>
   </>
 }
 
-function ImportPage({ saved }: { saved: (item: SourceDetail) => void }) {
-  const [mode, setMode] = useState<'file' | 'paste'>('file')
+function ImportPage({ saved }: { saved: (id: number) => void }) {
+  const [mode, setMode] = useState<'file' | 'paste' | 'bilibili' | 'localVideo'>('file')
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [file, setFile] = useState<File>()
@@ -173,7 +195,7 @@ function ImportPage({ saved }: { saved: (item: SourceDetail) => void }) {
     setError('')
     try {
       const detail = mode === 'file' && file ? await api.upload(file, title) : await api.paste(title, content)
-      if (hash() === '/import') saved(detail)
+      if (hash() === '/import') saved(detail.source.id)
     } catch (failure) {
       setError(errorText(failure))
     } finally {
@@ -182,17 +204,24 @@ function ImportPage({ saved }: { saved: (item: SourceDetail) => void }) {
   }
 
   return <>
-    <div className="page-heading"><div><h1>导入资料</h1><p>上传本地文档或字幕，或直接粘贴文本。</p></div></div>
+    <div className="page-heading"><div><h1>导入资料</h1><p>上传文档和字幕、粘贴文本，或检查本地视频。</p></div></div>
     <section className="panel import-panel">
-      <form onSubmit={submit}>
-        <fieldset disabled={busy}>
-          <legend className="sr-only">导入方式</legend>
+      <fieldset disabled={busy} className="import-tabs">
+        <legend className="sr-only">导入方式</legend>
           <div className="tabs">
             <button className={mode === 'file' ? 'selected' : ''} type="button" aria-pressed={mode === 'file'}
               onClick={() => { setMode('file'); setError('') }}><UploadCloud size={17} /> 上传文件</button>
             <button className={mode === 'paste' ? 'selected' : ''} type="button" aria-pressed={mode === 'paste'}
               onClick={() => { setMode('paste'); setError('') }}><AlignLeft size={17} /> 粘贴文本</button>
+            <button className={mode === 'bilibili' ? 'selected' : ''} type="button" aria-pressed={mode === 'bilibili'}
+              onClick={() => setMode('bilibili')}><AudioLines size={17} /> Bilibili 字幕</button>
+            <button className={mode === 'localVideo' ? 'selected' : ''} type="button" aria-pressed={mode === 'localVideo'}
+              onClick={() => setMode('localVideo')}><Video size={17} /> 本地视频</button>
           </div>
+      </fieldset>
+      {mode === 'bilibili' ? <BilibiliImport saved={saved} /> : mode === 'localVideo' ? <LocalVideoImport /> : <form onSubmit={submit}>
+        <fieldset disabled={busy}>
+          <legend className="sr-only">资料内容</legend>
           <div className="form-body">
             <label className="field">资料标题 {mode === 'file' && <small>选填</small>}
               <input value={title} onChange={(event) => setTitle(event.target.value)}
@@ -231,12 +260,12 @@ function ImportPage({ saved }: { saved: (item: SourceDetail) => void }) {
             </div>
           </div>
         </fieldset>
-      </form>
+      </form>}
     </section>
   </>
 }
 
-function Workspace({ id, imported }: { id: number; imported: boolean }) {
+function Workspace({ id, imported, evidence }: { id: number; imported: boolean; evidence?: string }) {
   const [detail, setDetail] = useState<SourceDetail>()
   const [error, setError] = useState('')
   const [attempt, setAttempt] = useState(0)
@@ -257,14 +286,32 @@ function Workspace({ id, imported }: { id: number; imported: boolean }) {
         <div><h1>{detail.source.title}</h1><p>{detail.source.filename || '手动粘贴'}</p></div>
       </div>
       {imported && <div className="success" role="status"><CircleCheck size={18} /> 已导入并保存到资料库</div>}
+      {subtitle(detail.source.kind) && <TranscriptSummary id={id} requestedEvidence={evidence} />}
       <div className="workspace-grid">
-        <article className="panel">
+        {hasParagraphs(detail.source.kind) || detail.source.kind === 'PDF'
+          ? <DocumentReader id={id} content={detail.content} pdf={detail.source.kind === 'PDF'} requestedEvidence={evidence} /> : <article className="panel">
           <div className="panel-heading"><h2><BookOpen size={18} />{subtitle(detail.source.kind) ? '原始字幕' : '资料正文'}</h2></div>
           <pre className="reader">{detail.content}</pre>
-        </article>
+        </article>}
         <aside className="panel details">
           <div className="panel-heading"><h2>资料信息</h2></div>
+          <SourceFavorite key={id} id={id} />
           <dl>
+            {detail.videoOrigin && <>
+              <dt>视频来源</dt>
+              <dd><a className="video-source-link" target="_blank" rel="noreferrer"
+                href={`https://www.bilibili.com/video/${detail.videoOrigin.bvid}?p=${detail.videoOrigin.page}`}>
+                P{detail.videoOrigin.page} · {detail.videoOrigin.partTitle}
+              </a></dd>
+              <dt>视频</dt><dd>{detail.videoOrigin.videoTitle}</dd>
+              <dt>CID</dt><dd>{detail.videoOrigin.cid}</dd>
+              <dt>轨道来源</dt><dd>用户上传字幕</dd>
+            </>}
+            {detail.localVideoOrigin && <>
+              <dt>视频来源</dt><dd>本地视频</dd>
+              <dt>视频</dt><dd>{detail.localVideoOrigin.filename}</dd>
+              <dt>轨道来源</dt><dd>{detail.localVideoOrigin.trackSource === 'MACHINE_ASR' ? '机器转写' : '用户上传字幕'}</dd>
+            </>}
             <dt>类型</dt><dd>{kinds[detail.source.kind]}</dd>
             <dt>导入日期</dt><dd>{date.format(new Date(detail.source.createdAt))}</dd>
             <dt>正文字数</dt><dd>{Array.from(detail.content).length.toLocaleString('zh-CN')} 字符</dd>
@@ -289,20 +336,32 @@ export function App() {
     return () => window.removeEventListener('hashchange', change)
   }, [])
 
-  const match = route.match(/^\/sources\/(\d+)$/)
+  const [pathname, query] = route.split('?', 2)
+  const match = pathname.match(/^\/sources\/(\d+)$/)
   const id = match ? Number(match[1]) : undefined
-  const section = route === '/' ? '工作台' : route === '/import' ? '导入资料' : id ? '资料工作区' : '资料库'
+  const noteId = pathname.match(/^\/notes\/([0-9a-f-]+)$/i)?.[1]
+  const researchNoteId = pathname.match(/^\/notes\/research\/([0-9a-f-]+)$/i)?.[1]
+  const notes = pathname === '/notes' || noteId !== undefined || researchNoteId !== undefined
+  const multiQuestion = pathname === '/transcript-questions'
+  const params = new URLSearchParams(query)
+  const evidence = params.get('evidence') ?? undefined
+  const researchId = params.get('research')
+  const pendingKey = params.get('pending') ?? undefined
+  const section = route === '/' ? '工作台' : route === '/import' ? '导入资料' : id ? '资料工作区'
+    : notes ? '笔记' : route === '/tasks' ? '任务中心' : multiQuestion ? '跨资料问答' : '资料库'
   const navigation = [
     { path: '/', label: '工作台', icon: House },
     { path: '/library', label: '资料库', icon: FolderOpen },
     { path: '/import', label: '导入资料', icon: UploadCloud },
+    { path: '/tasks', label: '任务中心', icon: ListChecks },
+    { path: '/notes', label: '笔记', icon: NotebookPen },
   ]
 
   return <div className="app-shell">
     <aside className="sidebar">
       <a href="#/" className="brand"><span className="brand-mark"><Layers3 size={23} /></span><span>CiteWeave</span></a>
       <nav aria-label="主导航">{navigation.map(({ path, label, icon: Icon }) => {
-        const active = route === path || (path === '/library' && id !== undefined)
+        const active = route === path || (path === '/library' && id !== undefined) || (path === '/notes' && notes)
         return <a key={path} className={active ? 'active' : ''} href={'#' + path}
           aria-current={active ? 'page' : undefined}><Icon size={18} />{label}</a>
       })}</nav>
@@ -312,8 +371,13 @@ export function App() {
       <header className="topbar"><span>个人空间</span><ChevronRight size={14} /><strong>{section}</strong></header>
       <main ref={main} tabIndex={-1} className="content">
         {route === '/' ? <Dashboard /> : route === '/import' ?
-          <ImportPage saved={(item) => { setImported(item.source.id); window.location.hash = sourceLink(item.source.id) }} />
-          : id !== undefined ? <Workspace key={id} id={id} imported={imported === id} /> : <Library />}
+          <ImportPage saved={(sourceId) => { setImported(sourceId); window.location.hash = sourceLink(sourceId) }} />
+          : id !== undefined ? <Workspace key={id} id={id} imported={imported === id} evidence={evidence} />
+            : route === '/tasks' ? <TaskPage />
+            : researchNoteId ? <ResearchNotePage key={researchNoteId} id={researchNoteId} />
+            : notes ? <NotesPage key={noteId ?? 'list'} id={noteId} />
+              : multiQuestion ? (researchId ? <SavedResearchPage key={researchId} id={researchId} />
+                : <MultiTranscriptPage key={pendingKey ?? 'research-form'} pendingKey={pendingKey} />) : <Library />}
       </main>
     </div>
   </div>

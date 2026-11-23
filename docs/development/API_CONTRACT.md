@@ -2,6 +2,8 @@
 
 适用于浏览器访问 Java 的正式接口，以及后续 Java 调用 Python 的业务接口。当前资料 API 已采用以下成功形状及资料业务错误码。Python 目前只有 `/healthz`，后续业务端点按此规范接入。
 
+查阅某个接口的调用方式、字段及错误分支时，进入[接口文档](API_REFERENCE.md)。新增或变更接口时同步更新这份目录与对应的契约测试。
+
 ## 请求
 
 - JSON 请求使用 `Content-Type: application/json`。创建和修改请求用专门的 DTO，声明必填字段、长度、允许值及空值语义。HTTP 层校验传输格式，业务层校验业务条件。Java 使用 record 或明确 DTO，Python 用 Pydantic，前端给请求参数和响应定义类型。

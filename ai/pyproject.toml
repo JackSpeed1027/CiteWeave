@@ -5,13 +5,28 @@ description = "CiteWeave AI Engine"
 requires-python = ">=3.11,<3.14"
 dependencies = [
     "fastapi>=0.115,<1",
+    "httpx>=0.28,<1",
+    "pydantic>=2,<3",
     "uvicorn>=0.34,<1",
 ]
 
 [dependency-groups]
 dev = [
-    "httpx>=0.28,<1",
     "pytest>=8,<10",
+]
+asr = [
+    "faster-whisper==1.2.1",
+    "ctranslate2==4.9.0",
+    "numpy>=2,<3",
+]
+retrieval = [
+    "onnxruntime==1.32.0",
+    "tokenizers==0.23.3",
+    "numpy>=2,<3",
+]
+vector-lab = [
+    {include-group = "retrieval"},
+    "psycopg[binary]>=3.2,<4",
 ]
 
 [tool.pytest.ini_options]

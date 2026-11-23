@@ -1,0 +1,105 @@
+{
+  "asOf": "2026-11-23",
+  "available": "可导入文档、文本和字幕，并从资料库读回原文。",
+  "latest": "独立 pgvector 验证 512 维精确检索，54 道冻结题排序与离线结果一致。",
+  "next": "Codex 准备真实模型和获准多 P 素材；用户集中验证两集导入、引用回跳和刷新读回。",
+  "stages": {
+    "workspace": {
+      "label": "正式页面已验证",
+      "tone": "green",
+      "symbol": "🟢"
+    },
+    "integration": {
+      "label": "真实接口已联调",
+      "tone": "blue",
+      "symbol": "🔵"
+    },
+    "offline": {
+      "label": "离线测试通过",
+      "tone": "amber",
+      "symbol": "🟡"
+    },
+    "prototype": {
+      "label": "原型演示",
+      "tone": "purple",
+      "symbol": "🟣"
+    },
+    "planned": {
+      "label": "待实现",
+      "tone": "slate",
+      "symbol": "⚪"
+    },
+    "fixture": {
+      "label": "夹具联调通过",
+      "tone": "amber",
+      "symbol": "🟡"
+    }
+  },
+  "milestones": [
+    {
+      "id": "source-readback",
+      "title": "资料入库与读回",
+      "stage": "workspace",
+      "evidence": "Markdown 上传、搜索、原文显示及刷新读回已通过浏览器验证。 个人收藏也已验证筛选和重启读回。",
+      "reference": {
+        "label": "开发日志",
+        "path": "docs/planning/DEVLOG.md"
+      },
+      "owner": "用户",
+      "next": "按最小验收导入样例，从资料库重新打开并刷新。",
+      "acceptance": "用户正式页面验收结果待记录"
+    },
+    {
+      "id": "video-transcript",
+      "title": "视频与字幕来源",
+      "stage": "fixture",
+      "evidence": "公开 BV 预览和合成字幕分 P 校验已联调。本地视频支持保存、字幕绑定与后台转写，单样本已在 CPU 离线实测。",
+      "reference": {
+        "label": "视频接口",
+        "path": "docs/development/API_REFERENCE.md"
+      },
+      "owner": "Codex",
+      "next": "使用获准的真实多 P 视频及对应 SRT/VTT，核对来源身份与摘要回跳。",
+      "acceptance": "真实多 P 素材与用户体验待验收"
+    },
+    {
+      "id": "cited-summary",
+      "title": "字幕证据与可引用摘要",
+      "stage": "fixture",
+      "evidence": "合成供应商已验证引用回跳和重启读回。隔离 PostgreSQL 已验证写入后故障回滚、原任务重试和摘要原子提交。",
+      "reference": {
+        "label": "证据契约",
+        "path": "docs/development/AI_EVIDENCE_CONTRACT.md"
+      },
+      "owner": "Codex、用户",
+      "next": "配置获准模型后生成真实摘要，用户核对引用原句、时间区间与刷新结果。",
+      "acceptance": "真实模型及用户集中体验待验收"
+    },
+    {
+      "id": "qa-notes",
+      "title": "问答与笔记回用",
+      "stage": "fixture",
+      "evidence": "可先查证据再提问。混合问答已验证三类引用。字幕摘要与研究笔记均可重开并下载带定位的 Markdown，研究笔记可编辑。",
+      "reference": {
+        "label": "开发日志",
+        "path": "docs/planning/DEVLOG.md"
+      },
+      "owner": "Codex、用户",
+      "next": "用授权模型复跑固定合成题，再人工核对拒答和回答依据。",
+      "acceptance": "真实模型与用户体验待验收"
+    },
+    {
+      "id": "agent-resume",
+      "title": "Agent 跨会话续做",
+      "stage": "planned",
+      "evidence": "已有研究历史、同键重试及步骤检查点。中断后已确认步骤可读回，续跑与记忆待接入。",
+      "reference": {
+        "label": "记忆方案",
+        "path": "docs/planning/AGENT_MEMORY.md"
+      },
+      "owner": "Codex、用户",
+      "next": "实现有来源的记忆与召回，用户开启新会话续研并验证撤销。",
+      "acceptance": "真实任务与用户体验待验收"
+    }
+  ]
+}

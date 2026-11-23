@@ -1,0 +1,512 @@
+{
+  "version": "transcript-v1",
+  "provenance": "为单字幕词面检索评测编写的合成字幕与人工标签",
+  "sources": {
+    "backend": "backend.srt",
+    "index": "index.srt"
+  },
+  "questions": [
+    {
+      "id": "P01-L",
+      "pairId": "P01",
+      "source": "backend",
+      "category": "literal",
+      "text": "评论缓存有效期多久？",
+      "requiredGroups": [
+        [
+          1
+        ]
+      ],
+      "expectedAnswer": "90 秒"
+    },
+    {
+      "id": "P01-P",
+      "pairId": "P01",
+      "source": "backend",
+      "category": "paraphrase",
+      "text": "用户留言的临时副本多久过期？",
+      "requiredGroups": [
+        [
+          1
+        ]
+      ],
+      "expectedAnswer": "90 秒"
+    },
+    {
+      "id": "P02-L",
+      "pairId": "P02",
+      "source": "backend",
+      "category": "literal",
+      "text": "任务租约是多少秒？",
+      "requiredGroups": [
+        [
+          4
+        ]
+      ],
+      "expectedAnswer": "30 秒"
+    },
+    {
+      "id": "P02-P",
+      "pairId": "P02",
+      "source": "backend",
+      "category": "paraphrase",
+      "text": "作业拿到独占资格后能保持多久？",
+      "requiredGroups": [
+        [
+          4
+        ]
+      ],
+      "expectedAnswer": "30 秒"
+    },
+    {
+      "id": "P03-L",
+      "pairId": "P03",
+      "source": "backend",
+      "category": "literal",
+      "text": "数据库事务将哪些记录一起提交？",
+      "requiredGroups": [
+        [
+          7
+        ]
+      ],
+      "expectedAnswer": "业务记录与 Outbox 事件"
+    },
+    {
+      "id": "P03-P",
+      "pairId": "P03",
+      "source": "backend",
+      "category": "paraphrase",
+      "text": "哪两笔写入必须同成同败？",
+      "requiredGroups": [
+        [
+          7
+        ]
+      ],
+      "expectedAnswer": "业务记录与 Outbox 事件"
+    },
+    {
+      "id": "P04-L",
+      "pairId": "P04",
+      "source": "backend",
+      "category": "literal",
+      "text": "消费者什么时候发送 ACK？",
+      "requiredGroups": [
+        [
+          8
+        ]
+      ],
+      "expectedAnswer": "完成持久化后"
+    },
+    {
+      "id": "P04-P",
+      "pairId": "P04",
+      "source": "backend",
+      "category": "paraphrase",
+      "text": "什么时候向队列确认这条投递已经处理？",
+      "requiredGroups": [
+        [
+          8
+        ]
+      ],
+      "expectedAnswer": "完成持久化后"
+    },
+    {
+      "id": "P05-L",
+      "pairId": "P05",
+      "source": "backend",
+      "category": "literal",
+      "text": "游标分页按哪些字段排序？",
+      "requiredGroups": [
+        [
+          12
+        ]
+      ],
+      "expectedAnswer": "创建时间和资料 ID 倒序"
+    },
+    {
+      "id": "P05-P",
+      "pairId": "P05",
+      "source": "backend",
+      "category": "paraphrase",
+      "text": "翻页从哪里续接，两个定位量分别是什么？",
+      "requiredGroups": [
+        [
+          12
+        ]
+      ],
+      "expectedAnswer": "创建时间和资料 ID 倒序"
+    },
+    {
+      "id": "P06-L",
+      "pairId": "P06",
+      "source": "backend",
+      "category": "literal",
+      "text": "任务续租间隔是多少秒？",
+      "requiredGroups": [
+        [
+          4,
+          14
+        ]
+      ],
+      "expectedAnswer": "10 秒"
+    },
+    {
+      "id": "P06-P",
+      "pairId": "P06",
+      "source": "backend",
+      "category": "paraphrase",
+      "text": "工作进程隔多久补一次独占资格？",
+      "requiredGroups": [
+        [
+          4,
+          14
+        ]
+      ],
+      "expectedAnswer": "10 秒"
+    },
+    {
+      "id": "P07-L",
+      "pairId": "P07",
+      "source": "index",
+      "category": "literal",
+      "text": "字幕开始和结束位置用什么单位保存？",
+      "requiredGroups": [
+        [
+          1
+        ]
+      ],
+      "expectedAnswer": "整数毫秒"
+    },
+    {
+      "id": "P07-P",
+      "pairId": "P07",
+      "source": "index",
+      "category": "paraphrase",
+      "text": "每句台词的时间码精确到千分之一秒吗？",
+      "requiredGroups": [
+        [
+          1
+        ]
+      ],
+      "expectedAnswer": "整数毫秒"
+    },
+    {
+      "id": "P08-L",
+      "pairId": "P08",
+      "source": "index",
+      "category": "literal",
+      "text": "索引构建失败时查询使用什么版本？",
+      "requiredGroups": [
+        [
+          3
+        ]
+      ],
+      "expectedAnswer": "旧的生效版本"
+    },
+    {
+      "id": "P08-P",
+      "pairId": "P08",
+      "source": "index",
+      "category": "paraphrase",
+      "text": "新检索库做坏了，用户还能搜哪份？",
+      "requiredGroups": [
+        [
+          3
+        ]
+      ],
+      "expectedAnswer": "旧的生效版本"
+    },
+    {
+      "id": "P09-L",
+      "pairId": "P09",
+      "source": "index",
+      "category": "literal",
+      "text": "索引任务的租约是多少秒？",
+      "requiredGroups": [
+        [
+          5
+        ]
+      ],
+      "expectedAnswer": "60 秒"
+    },
+    {
+      "id": "P09-P",
+      "pairId": "P09",
+      "source": "index",
+      "category": "paraphrase",
+      "text": "旧工人失去作业控制权要等多久？",
+      "requiredGroups": [
+        [
+          5
+        ]
+      ],
+      "expectedAnswer": "60 秒"
+    },
+    {
+      "id": "P10-L",
+      "pairId": "P10",
+      "source": "index",
+      "category": "literal",
+      "text": "Recall@5 怎么计算？",
+      "requiredGroups": [
+        [
+          6,
+          13
+        ]
+      ],
+      "expectedAnswer": "前五条命中的证据组占比，再取宏平均"
+    },
+    {
+      "id": "P10-P",
+      "pairId": "P10",
+      "source": "index",
+      "category": "paraphrase",
+      "text": "每题支持材料找回多少，最终采用哪种平均？",
+      "requiredGroups": [
+        [
+          6,
+          13
+        ]
+      ],
+      "expectedAnswer": "前五条命中的证据组占比，再取宏平均"
+    },
+    {
+      "id": "P11-L",
+      "pairId": "P11",
+      "source": "index",
+      "category": "literal",
+      "text": "证据 ID 由哪些字段构成？",
+      "requiredGroups": [
+        [
+          7
+        ]
+      ],
+      "expectedAnswer": "资料 ID、内容版本、片段序号"
+    },
+    {
+      "id": "P11-P",
+      "pairId": "P11",
+      "source": "index",
+      "category": "paraphrase",
+      "text": "用哪三个量才能唯一找回那句话？",
+      "requiredGroups": [
+        [
+          7
+        ]
+      ],
+      "expectedAnswer": "资料 ID、内容版本、片段序号"
+    },
+    {
+      "id": "P12-L",
+      "pairId": "P12",
+      "source": "index",
+      "category": "literal",
+      "text": "自动语言检测读取几段字幕？",
+      "requiredGroups": [
+        [
+          10
+        ]
+      ],
+      "expectedAnswer": "前 3 段"
+    },
+    {
+      "id": "P12-P",
+      "pairId": "P12",
+      "source": "index",
+      "category": "paraphrase",
+      "text": "系统判别是中文还是外语时先抽查多少条？",
+      "requiredGroups": [
+        [
+          10
+        ]
+      ],
+      "expectedAnswer": "前 3 段"
+    },
+    {
+      "id": "M01",
+      "source": "backend",
+      "category": "multi-evidence",
+      "text": "评论缓存有效期和更新后删除规则分别是什么？",
+      "requiredGroups": [
+        [
+          1
+        ],
+        [
+          2
+        ]
+      ],
+      "expectedAnswer": "90 秒；更新成功后删除缓存键"
+    },
+    {
+      "id": "M02",
+      "source": "backend",
+      "category": "multi-evidence",
+      "text": "任务租约是多久，失败重试的间隔各是多少？",
+      "requiredGroups": [
+        [
+          4
+        ],
+        [
+          5
+        ]
+      ],
+      "expectedAnswer": "租约 30 秒；2、4、8 秒"
+    },
+    {
+      "id": "M03",
+      "source": "backend",
+      "category": "multi-evidence",
+      "text": "数据库 Outbox 怎样提交，消费者在何时 ACK？",
+      "requiredGroups": [
+        [
+          7
+        ],
+        [
+          8
+        ]
+      ],
+      "expectedAnswer": "同一事务提交业务记录与事件；持久化后 ACK"
+    },
+    {
+      "id": "M04",
+      "source": "index",
+      "category": "multi-evidence",
+      "text": "索引构建失败和新索引验证成功分别如何处理？",
+      "requiredGroups": [
+        [
+          3
+        ],
+        [
+          4
+        ]
+      ],
+      "expectedAnswer": "失败保留旧索引；验证成功后原子切换"
+    },
+    {
+      "id": "M05",
+      "source": "index",
+      "category": "multi-evidence",
+      "text": "字幕检索最多几段，字符预算是什么？",
+      "requiredGroups": [
+        [
+          2
+        ],
+        [
+          8
+        ]
+      ],
+      "expectedAnswer": "最多 5 段；12,000 字符"
+    },
+    {
+      "id": "M06",
+      "source": "index",
+      "category": "multi-evidence",
+      "text": "证据 ID 由什么构成，版本化笔记又保留哪些可追溯内容？",
+      "requiredGroups": [
+        [
+          7
+        ],
+        [
+          9
+        ]
+      ],
+      "expectedAnswer": "资料 ID、版本、序号；保留正文、证据 ID 和原句"
+    },
+    {
+      "id": "D01",
+      "source": "backend",
+      "category": "distractor",
+      "text": "评论缓存使用 Redis 还是 Memcached？",
+      "requiredGroups": [],
+      "expectedAnswer": null
+    },
+    {
+      "id": "D02",
+      "source": "backend",
+      "category": "distractor",
+      "text": "任务租约的字段名是 leaseUntil 吗？",
+      "requiredGroups": [],
+      "expectedAnswer": null
+    },
+    {
+      "id": "D03",
+      "source": "backend",
+      "category": "distractor",
+      "text": "上传正文可以同时接收 ZIP 吗？",
+      "requiredGroups": [],
+      "expectedAnswer": null
+    },
+    {
+      "id": "D04",
+      "source": "index",
+      "category": "distractor",
+      "text": "字幕自动语言检测使用 Whisper 哪个版本？",
+      "requiredGroups": [],
+      "expectedAnswer": null
+    },
+    {
+      "id": "D05",
+      "source": "index",
+      "category": "distractor",
+      "text": "检索日志保留多少天才清除？",
+      "requiredGroups": [],
+      "expectedAnswer": null
+    },
+    {
+      "id": "D06",
+      "source": "index",
+      "category": "distractor",
+      "text": "索引任务租约在美国区域是多少？",
+      "requiredGroups": [],
+      "expectedAnswer": null
+    },
+    {
+      "id": "N01",
+      "source": "backend",
+      "category": "out-of-topic",
+      "text": "南极企鹅分布在哪里？",
+      "requiredGroups": [],
+      "expectedAnswer": null
+    },
+    {
+      "id": "N02",
+      "source": "backend",
+      "category": "out-of-topic",
+      "text": "小提琴琴弦怎么校准？",
+      "requiredGroups": [],
+      "expectedAnswer": null
+    },
+    {
+      "id": "N03",
+      "source": "backend",
+      "category": "out-of-topic",
+      "text": "红烧茄子的食谱",
+      "requiredGroups": [],
+      "expectedAnswer": null
+    },
+    {
+      "id": "N04",
+      "source": "index",
+      "category": "out-of-topic",
+      "text": "古代陶瓷窑址",
+      "requiredGroups": [],
+      "expectedAnswer": null
+    },
+    {
+      "id": "N05",
+      "source": "index",
+      "category": "out-of-topic",
+      "text": "鲸鱼迁徙路线",
+      "requiredGroups": [],
+      "expectedAnswer": null
+    },
+    {
+      "id": "N06",
+      "source": "index",
+      "category": "out-of-topic",
+      "text": "室内盆栽浇水频率",
+      "requiredGroups": [],
+      "expectedAnswer": null
+    }
+  ]
+}

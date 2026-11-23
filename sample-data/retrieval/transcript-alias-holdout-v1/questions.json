@@ -1,0 +1,137 @@
+{
+  "version": "transcript-alias-holdout-v1",
+  "provenance": "独立编写的合成字幕与问法，对照词面匹配和术语回退，不用于调整规则",
+  "sources": {
+    "operations": "operations.srt"
+  },
+  "questions": [
+    {
+      "id": "H01",
+      "source": "operations",
+      "category": "paraphrase",
+      "text": "警报翻页用哪套机制？",
+      "requiredGroups": [
+        [
+          1
+        ]
+      ],
+      "expectedAnswer": "游标分页"
+    },
+    {
+      "id": "H02",
+      "source": "operations",
+      "category": "paraphrase",
+      "text": "对白时间码精确到哪一级？",
+      "requiredGroups": [
+        [
+          2
+        ]
+      ],
+      "expectedAnswer": "整数毫秒"
+    },
+    {
+      "id": "H03",
+      "source": "operations",
+      "category": "paraphrase",
+      "text": "语种识别读几条？",
+      "requiredGroups": [
+        [
+          3
+        ]
+      ],
+      "expectedAnswer": "前八段"
+    },
+    {
+      "id": "H04",
+      "source": "operations",
+      "category": "paraphrase",
+      "text": "检索库损坏后继续读哪版？",
+      "requiredGroups": [
+        [
+          5
+        ]
+      ],
+      "expectedAnswer": "上次可用快照"
+    },
+    {
+      "id": "H05",
+      "source": "operations",
+      "category": "paraphrase",
+      "text": "一条讯息会留下几条操作记录？",
+      "requiredGroups": [
+        [
+          4
+        ]
+      ],
+      "expectedAnswer": "一条审计流水"
+    },
+    {
+      "id": "H06",
+      "source": "operations",
+      "category": "literal",
+      "text": "每周哪天跑回归测试？",
+      "requiredGroups": [
+        [
+          6
+        ]
+      ],
+      "expectedAnswer": "周二"
+    },
+    {
+      "id": "H07",
+      "source": "operations",
+      "category": "paraphrase",
+      "text": "归档产物选择了何种字符集？",
+      "requiredGroups": [
+        [
+          8
+        ]
+      ],
+      "expectedAnswer": "UTF-8"
+    },
+    {
+      "id": "H08",
+      "source": "operations",
+      "category": "literal",
+      "text": "仓库修订用哪个标识？",
+      "requiredGroups": [
+        [
+          7
+        ]
+      ],
+      "expectedAnswer": "提交号"
+    },
+    {
+      "id": "H09",
+      "source": "operations",
+      "category": "unanswerable",
+      "text": "翻页能不能输入银行卡号？",
+      "requiredGroups": [],
+      "expectedAnswer": null
+    },
+    {
+      "id": "H10",
+      "source": "operations",
+      "category": "unanswerable",
+      "text": "对白时间码支持 60 fps 吗？",
+      "requiredGroups": [],
+      "expectedAnswer": null
+    },
+    {
+      "id": "H11",
+      "source": "operations",
+      "category": "unanswerable",
+      "text": "语种识别覆盖阿拉伯语吗？",
+      "requiredGroups": [],
+      "expectedAnswer": null
+    },
+    {
+      "id": "H12",
+      "source": "operations",
+      "category": "unanswerable",
+      "text": "火星有几颗卫星？",
+      "requiredGroups": [],
+      "expectedAnswer": null
+    }
+  ]
+}

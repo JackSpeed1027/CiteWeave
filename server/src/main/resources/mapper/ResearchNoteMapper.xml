@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.citeweave.source.ResearchNoteMapper">
+    <sql id="header">id, research_id, title, revision, updated_at</sql>
+
+    <select id="listRecent" resultType="dev.citeweave.source.ResearchNoteMapper$NoteRow">
+        SELECT <include refid="header"/> FROM research_notes
+        WHERE workspace_key = #{workspace} ORDER BY updated_at DESC, id DESC LIMIT #{limit}
+    </select>
+
+    <!-- 重复保存由唯一键裁决，已有编辑内容不参与更新。 -->
+    <select id="insertDraft" resultType="dev.citeweave.source.ResearchNoteMapper$NoteRow"
+            affectData="true" flushCache="true" useCache="false">
+        INSERT INTO research_notes (id, workspace_key, research_id, title, markdown, citations)
+        VALUES (#{id}, #{workspace}, #{researchId}, #{title}, #{markdown}, CAST(#{citations} AS jsonb))
+        ON CONFLICT (workspace_key, research_id) DO NOTHING
+        RETURNING <include refid="header"/>, markdown, citations
+    </select>
+
+    <!-- 检查并推进修订号是同一次写入，避免两个浏览器覆盖彼此内容。 -->
+    <select id="updateRevision" resultType="dev.citeweave.source.ResearchNoteMapper$NoteRow"
+            affectData="true" flushCache="true" useCache="false">
+        UPDATE research_notes
+        SET title = #{title}, markdown = #{markdown}, revision = revision + 1, updated_at = clock_timestamp()
+        WHERE workspace_key = #{workspace} AND id = #{id} AND revision = #{revision}
+        RETURNING <include refid="header"/>, markdown, citations
+    </select>
+</mapper>

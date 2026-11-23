@@ -1,0 +1,22 @@
+{
+  "segments": [
+    {
+      "evidenceId": "fixture-cue-1",
+      "sourceId": "fixture-caption",
+      "sourceVersionId": "fixture-version-1",
+      "locationType": "transcript",
+      "startMs": 1000,
+      "endMs": 4000,
+      "text": "先确认作者在回答哪个问题。"
+    },
+    {
+      "evidenceId": "fixture-cue-2",
+      "sourceId": "fixture-caption",
+      "sourceVersionId": "fixture-version-1",
+      "locationType": "transcript",
+      "startMs": 4500,
+      "endMs": 8000,
+      "text": "把关键结论和原始出处记录在一起。"
+    }
+  ]
+}

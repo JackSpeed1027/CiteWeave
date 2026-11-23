@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.citeweave.source.LocalVideoTrackMapper">
+    <!-- 锁住已授权视频。同一视频的查重、写字幕和绑定按此锁串行执行。 -->
+    <select id="lockDuration" resultType="long" useCache="false">
+        SELECT duration_ms FROM local_videos WHERE id = #{videoId} FOR UPDATE
+    </select>
+    <select id="listSources" resultType="dev.citeweave.source.SourceRow">
+        SELECT s.id, s.title, s.kind, s.filename, s.created_at, t.track_source AS local_track_source
+        FROM local_video_subtitle_tracks t JOIN sources s ON s.id = t.source_id
+        WHERE t.video_id = #{videoId} ORDER BY t.source_id DESC LIMIT #{limit}
+    </select>
+</mapper>

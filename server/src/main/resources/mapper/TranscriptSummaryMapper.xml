@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.citeweave.source.TranscriptSummaryMapper">
+    <select id="findResult" resultType="string">
+        SELECT result::text FROM transcript_summaries
+        WHERE source_id = #{id} AND source_version = #{version}
+    </select>
+
+    <!-- 同步与后台都核对原资料版本；后台额外锁定本次尚有效的尝试。 -->
+    <insert id="publish">
+        INSERT INTO transcript_summaries (source_id, source_version, result, input_evidence_ids)
+        SELECT id, #{version}, CAST(#{result} AS jsonb), CAST(#{inputIds} AS jsonb)
+        FROM sources
+        WHERE id = #{id} AND kind = #{kind} AND content = #{content}
+        <if test="taskId != null">
+            AND EXISTS (
+                SELECT 1 FROM summary_tasks
+                WHERE id = #{taskId,jdbcType=OTHER} AND source_id = #{id}
+                    AND status = 'RUNNING' AND attempt = #{attempt} AND lease_until &gt; clock_timestamp()
+                FOR UPDATE
+            )
+        </if>
+        ON CONFLICT (source_id, source_version) DO NOTHING
+    </insert>
+
+    <!-- 已有结果也走相同检查，只有当前资料版本的有效尝试能成功。 -->
+    <update id="completeTask">
+        UPDATE summary_tasks SET status = 'SUCCEEDED', lease_until = NULL,
+            error_code = NULL, updated_at = clock_timestamp()
+        WHERE id = #{taskId} AND source_id = #{id} AND status = 'RUNNING'
+            AND attempt = #{attempt} AND lease_until &gt; clock_timestamp()
+            AND EXISTS (
+                SELECT 1 FROM transcript_summaries a JOIN sources s ON s.id = a.source_id
+                WHERE s.id = #{id} AND s.kind = #{kind} AND s.content = #{content}
+                    AND a.source_version = #{version}
+            )
+    </update>
+</mapper>

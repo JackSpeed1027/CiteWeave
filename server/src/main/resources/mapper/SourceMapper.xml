@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.citeweave.source.SourceMapper">
+    <sql id="sourceSummary">s.id, s.title, s.kind, s.filename, s.created_at</sql>
+    <sql id="questionReady">
+        (s.kind IN ('TEXT', 'TXT', 'MARKDOWN', 'SRT', 'VTT')
+          OR (s.kind = 'PDF' AND EXISTS (
+             SELECT 1 FROM source_pdf_pages p WHERE p.source_id = s.id
+          )))
+    </sql>
+
+    <select id="questionSources" resultType="dev.citeweave.source.SourceRow">
+        SELECT <include refid="sourceSummary"/> FROM sources s
+        WHERE <include refid="questionReady"/>
+        ORDER BY s.created_at DESC, s.id DESC
+    </select>
+
+    <select id="countQuestionSources" resultType="long">
+        SELECT count(*) FROM sources s
+        WHERE <include refid="questionReady"/> AND s.id IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">#{id}</foreach>
+    </select>
+
+    <select id="listFavorites" resultType="dev.citeweave.source.SourceRow">
+        SELECT <include refid="sourceSummary"/> FROM sources s
+        JOIN source_favorites f ON f.source_id = s.id
+        WHERE f.workspace_key = #{workspace} AND f.favorited
+        ORDER BY s.created_at DESC, s.id DESC
+    </select>
+
+    <select id="favorite" resultType="boolean">
+        SELECT COALESCE(f.favorited, false) FROM sources s
+        LEFT JOIN source_favorites f ON f.source_id = s.id AND f.workspace_key = #{workspace}
+        WHERE s.id = #{id}
+    </select>
+
+    <!-- 冲突由工作区与资料的唯一键处理。一条语句同时校验资料存在并写入收藏。 -->
+    <select id="setFavorite" resultType="boolean" affectData="true" flushCache="true" useCache="false">
+        INSERT INTO source_favorites (workspace_key, source_id, favorited)
+        SELECT #{workspace}, id, #{favorited} FROM sources WHERE id = #{id}
+        ON CONFLICT (workspace_key, source_id) DO UPDATE SET favorited = EXCLUDED.favorited
+        RETURNING favorited
+    </select>
+
+    <select id="findWithVideo" resultType="dev.citeweave.source.SourceRow">
+        SELECT <include refid="sourceSummary"/>, s.content,
+            t.bvid, t.page, t.cid, t.video_title, t.part_title, t.track_source,
+            v.id AS local_video_id, v.filename AS local_video_filename, lt.track_source AS local_track_source
+        FROM sources s LEFT JOIN bilibili_subtitle_tracks t ON t.source_id = s.id
+        LEFT JOIN local_video_subtitle_tracks lt ON lt.source_id = s.id
+        LEFT JOIN local_videos v ON v.id = lt.video_id
+        WHERE s.id = #{id}
+    </select>
+
+    <!-- RETURNING 直接取得 PostgreSQL 生成的标识和时间，省去写后回查。 -->
+    <select id="insertReturning" resultType="dev.citeweave.source.SourceRow"
+            affectData="true" flushCache="true" useCache="false">
+        INSERT INTO sources (title, kind, filename, content)
+        VALUES (#{title}, #{kind}, #{filename,jdbcType=VARCHAR}, #{content})
+        RETURNING id, title, kind, filename, created_at, content
+    </select>
+
+    <insert id="insertPdfPages">
+        INSERT INTO source_pdf_pages (source_id, page_number, content) VALUES
+        <foreach collection="pages" item="page" separator=",">
+            (#{id}, #{page.number}, #{page.content})
+        </foreach>
+    </insert>
+
+    <select id="pdfPages" resultType="dev.citeweave.source.SourceParser$PdfPage">
+        SELECT page_number, content FROM source_pdf_pages WHERE source_id = #{id} ORDER BY page_number
+    </select>
+</mapper>

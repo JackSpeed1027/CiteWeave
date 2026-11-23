@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.citeweave.source.TranscriptNoteMapper">
+    <!-- 在同一条语句里读取并保存已校验的摘要，唯一键处理重复提交。 -->
+    <select id="insertSnapshot" resultType="dev.citeweave.source.TranscriptNoteMapper$NoteRow"
+            affectData="true" flushCache="true" useCache="false">
+        INSERT INTO transcript_notes (id, workspace_key, source_id, source_version, title, snapshot)
+        SELECT #{id}, #{workspace}, s.id, a.source_version, s.title, a.result
+        FROM transcript_summaries a JOIN sources s ON s.id = a.source_id
+        WHERE a.source_id = #{sourceId} AND a.source_version = #{version}
+        ON CONFLICT (workspace_key, source_id, source_version) DO NOTHING
+        RETURNING id, source_id, title, created_at, snapshot
+    </select>
+</mapper>

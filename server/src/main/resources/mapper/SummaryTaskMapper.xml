@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.citeweave.source.SummaryTaskMapper">
+    <sql id="taskColumns">id, source_id, status, attempt, error_code, updated_at</sql>
+
+    <!-- 唯一约束处理同一字幕的并发提交。 -->
+    <select id="insertQueued" resultType="dev.citeweave.source.SummaryTaskRow"
+            affectData="true" flushCache="true" useCache="false">
+        INSERT INTO summary_tasks (id, source_id, status)
+        VALUES (#{id,jdbcType=OTHER}, #{sourceId}, 'QUEUED')
+        ON CONFLICT (source_id) DO NOTHING RETURNING <include refid="taskColumns"/>
+    </select>
+
+    <select id="listRecent" resultType="dev.citeweave.source.SummaryTaskRow">
+        SELECT <include refid="taskColumns"/> FROM summary_tasks ORDER BY updated_at DESC, id DESC LIMIT #{limit}
+    </select>
+
+    <update id="expire">
+        UPDATE summary_tasks SET status = 'FAILED', lease_until = NULL,
+            error_code = 'TASK_LEASE_EXPIRED', updated_at = clock_timestamp()
+        WHERE status = 'RUNNING' AND lease_until &lt;= clock_timestamp()
+    </update>
+
+    <!-- 领取与租约期限写入同一语句；跳过被其它执行者锁定的任务。 -->
+    <select id="claim" resultType="dev.citeweave.source.SummaryTaskRow"
+            affectData="true" flushCache="true" useCache="false">
+        UPDATE summary_tasks SET status = 'RUNNING', attempt = attempt + 1,
+            lease_until = clock_timestamp() + make_interval(secs => #{leaseSeconds}), updated_at = clock_timestamp()
+        WHERE id = (SELECT id FROM summary_tasks WHERE status = 'QUEUED'
+            ORDER BY updated_at, id LIMIT 1 FOR UPDATE SKIP LOCKED)
+        RETURNING <include refid="taskColumns"/>
+    </select>
+
+    <!-- 只有当前未过期的尝试能标记失败。成功状态由摘要事务提交。 -->
+    <update id="fail">
+        UPDATE summary_tasks SET status = 'FAILED', lease_until = NULL,
+            error_code = #{error,jdbcType=VARCHAR}, updated_at = clock_timestamp()
+        WHERE id = #{id,jdbcType=OTHER} AND status = 'RUNNING'
+            AND attempt = #{attempt} AND lease_until &gt; clock_timestamp()
+    </update>
+
+    <select id="retry" resultType="dev.citeweave.source.SummaryTaskRow"
+            affectData="true" flushCache="true" useCache="false">
+        UPDATE summary_tasks SET status = 'QUEUED', error_code = NULL, updated_at = clock_timestamp()
+        WHERE id = #{id,jdbcType=OTHER} AND status = 'FAILED'
+        RETURNING <include refid="taskColumns"/>
+    </select>
+</mapper>

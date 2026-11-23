@@ -157,3 +157,124 @@ fieldset { min-width: 0; border: 0; padding: 0; margin: 0; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+/* 进度看板按可用宽度展开，窄屏保留状态、证据和下一道验收。 */
+.project-progress { margin-bottom: 24px; }
+.project-progress .panel-heading time { color: var(--muted); font-size: .8rem; white-space: nowrap; }
+.progress-overview {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--line);
+}
+.progress-overview > div { padding: 15px 20px; background: #faf8fd; }
+.progress-overview dt { margin-bottom: 6px; color: var(--strong); font-size: .79rem; font-weight: 700; }
+.progress-overview dd { margin: 0; }
+.progress-overview dd, .progress-evidence, .progress-next { font-size: .86rem; line-height: 1.65; overflow-wrap: anywhere; }
+.progress-milestones { list-style: none; padding: 0; margin: 0; }
+.progress-milestone {
+  display: grid;
+  grid-template-columns: minmax(0, .84fr) minmax(0, 1.05fr) minmax(0, 1.25fr);
+  gap: 16px;
+  padding: 15px 20px;
+}
+.progress-milestone + .progress-milestone { border-top: 1px solid var(--line); }
+.progress-stage h3 { margin: 0 0 6px; font-size: .92rem; line-height: 1.5; }
+.progress-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 6px;
+  padding: 3px 7px;
+  font-size: .76rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.progress-badge svg { flex: none; }
+.tone-green { background: #e8f4ee; color: #246245; }
+.tone-blue { background: #eaf1fc; color: #31538e; }
+.tone-amber { background: #fcf0db; color: #775016; }
+.tone-purple { background: #f0ebfb; color: #543794; }
+.tone-slate { background: #eeedf1; color: #504b60; }
+.progress-evidence, .progress-acceptance { color: var(--muted); }
+.progress-acceptance { margin-top: 4px; font-size: .8rem; }
+@media (max-width: 880px) {
+  .progress-milestone { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 8px 15px; }
+  .progress-stage { grid-column: 1 / -1; }
+}
+@media (max-width: 650px) {
+  .progress-overview, .progress-milestone { grid-template-columns: minmax(0, 1fr); }
+  .progress-overview > div, .progress-milestone { padding: 12px 15px; }
+  .project-progress .panel-heading { padding-inline: 15px; }
+}
+
+/* 摘要与时间轴共同呈现，键盘和滚动都能定位到引用片段。 */
+.transcript-summary { margin-bottom: 18px; }
+.summary-content, .summary-timeline { padding: 16px 20px; display: grid; gap: 12px; }
+.summary-content { justify-items: start; }
+.summary-prose { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.8; }
+.summary-citations { display: flex; flex-wrap: wrap; gap: 8px; }
+.summary-timeline { border-top: 1px solid var(--line); }
+.summary-timeline h3 { font-size: .94rem; }
+.summary-timeline ol { max-height: 360px; overflow: auto; margin: 0; padding: 3px; list-style: none; }
+.summary-timeline li { padding: 8px 10px; border-radius: 7px; overflow-wrap: anywhere; }
+.summary-timeline li span { color: var(--muted); font-size: .8rem; }
+.summary-timeline li.cue-selected { background: #efebfa; box-shadow: inset 3px 0 var(--accent); }
+
+/* 保持窄屏的第三种导入方式可用，来源和长 CID 可换行。 */
+.import-tabs .tabs { flex-wrap: wrap; }
+.video-preview-metadata { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 15px; margin: 14px 0 0; }
+.video-preview-metadata dt { color: var(--muted); font-size: .82rem; }
+.video-preview-metadata dd { margin: 4px 0 0; font-weight: 600; }
+.video-actions { flex-wrap: wrap; }
+.local-video-records { overflow-wrap: anywhere; }
+.video-subtitles { display: grid; gap: 12px; margin-top: 12px; }
+.video-subtitle-form { display: flex; align-items: end; gap: 10px; flex-wrap: wrap; }
+.video-subtitle-form .field { min-width: 0; flex: 1 1 200px; }
+.video-subtitle-form input { width: 100%; }
+.video-field select { width: 100%; }
+.details dd { overflow-wrap: anywhere; }
+.video-source-link { color: var(--strong); text-decoration: underline; text-underline-offset: 3px; }
+
+/* 笔记复用现有面板，引用始终保留原句和时间区间。 */
+.note-list, .note-citations { list-style: none; padding: 0; margin: 0; width: 100%; }
+.note-list li + li { border-top: 1px solid var(--line); }
+.note-list a { display: flex; justify-content: space-between; gap: 12px; padding: 14px 20px; }
+.note-list a:hover { background: #faf8fe; }
+.note-list strong, .note-citations p { overflow-wrap: anywhere; }
+.note-list time { color: var(--muted); flex: none; }
+.note-citations li { padding-block: 10px; border-top: 1px solid var(--line); }
+.note-citations p { margin-top: 6px; }
+.task-list li { padding-inline: 20px; overflow-wrap: anywhere; }
+.task-list .library-actions { margin-top: 8px; }
+.note-page-heading { flex-wrap: wrap; overflow-wrap: anywhere; }
+
+/* 问答和引用共用字幕工作区，输入框可在窄屏收缩。 */
+.transcript-question { border-top: 1px solid var(--line); padding: 16px 20px; display: grid; gap: 12px; }
+.transcript-question h3 { font-size: .94rem; }
+.question-form { display: flex; align-items: end; gap: 10px; }
+.question-form .field { flex: 1; min-width: 0; }
+.question-result { display: grid; gap: 9px; padding: 12px; border-radius: 8px; background: #faf8fe; }
+
+/* 收藏状态在详情中独立加载，筛选按钮在窄屏允许换行。 */
+.source-favorite { padding: 12px 16px 0; display: grid; gap: 8px; justify-items: start; }
+.favorite-filter[aria-pressed="true"] { background: #f0ebfb; color: var(--strong); border-color: #d4c7ef; }
+.library-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.multi-source-options { display: grid; max-height: 220px; overflow: auto; gap: 4px; }
+.multi-source-option { display: flex; align-items: center; gap: 8px; padding: 8px; overflow-wrap: anywhere; }
+.multi-citation-link { white-space: normal; text-align: left; overflow-wrap: anywhere; }
+/* 研究轨迹展示已完成动作，长资料标题在窄屏可以换行。 */
+.research-trace { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 8px; overflow-wrap: anywhere; }
+.research-trace h2 { font-size: .94rem; margin-bottom: 8px; }
+.research-trace li:last-child { padding-bottom: 0; }
+.document-paragraphs { list-style: none; margin: 0; padding: 12px 18px; }
+.document-paragraphs > li { padding: 8px 10px; border-radius: 8px; }
+.document-paragraphs .reader { padding: 5px 0; }
+.document-paragraphs .paragraph-selected { background: #efebfa; box-shadow: inset 3px 0 var(--accent); }
+@media (max-width: 650px) {
+  .page-heading:has(.library-actions) { flex-wrap: wrap; }
+  .filters { flex-wrap: wrap; }
+  .filters .search { flex-basis: 100%; max-width: none; }
+}

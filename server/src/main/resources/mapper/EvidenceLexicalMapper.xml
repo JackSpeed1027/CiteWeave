@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.citeweave.source.EvidenceLexicalMapper">
+    <resultMap id="evidence" type="dev.citeweave.source.TranscriptSummaryEngine$Evidence">
+        <constructor>
+            <arg column="evidence_id" javaType="java.lang.String"/>
+            <arg column="source_id" javaType="java.lang.String"/>
+            <arg column="source_version" javaType="java.lang.String"/>
+            <arg column="location_type" javaType="java.lang.String"/>
+            <arg column="start_ms" javaType="java.lang.Long"/>
+            <arg column="end_ms" javaType="java.lang.Long"/>
+            <arg column="body" javaType="java.lang.String"/>
+            <arg column="paragraph" javaType="java.lang.Integer"/>
+            <arg column="page" javaType="java.lang.Integer"/>
+        </constructor>
+    </resultMap>
+
+    <sql id="versionKey">
+        source_id = #{key.sourceId} AND source_version = #{key.sourceVersion} AND index_version = #{key.indexVersion}
+    </sql>
+
+    <select id="exists" resultType="boolean">
+        SELECT EXISTS (SELECT 1 FROM lexical_evidence_generations WHERE <include refid="versionKey"/>)
+    </select>
+
+    <!-- 并发同版本只有一个事务插入版本行，其它事务等首次提交后复用。 -->
+    <insert id="reserve">
+        INSERT INTO lexical_evidence_generations (source_id, source_version, index_version)
+        VALUES (#{key.sourceId}, #{key.sourceVersion}, #{key.indexVersion})
+        ON CONFLICT (source_id, source_version, index_version) DO NOTHING
+    </insert>
+
+    <insert id="insertChunks">
+        INSERT INTO lexical_evidence_chunks
+            (source_id, source_version, index_version, ordinal, evidence_id, location_type,
+             start_ms, end_ms, body, paragraph, page, terms)
+        VALUES
+        <foreach collection="chunks" item="chunk" separator=",">
+            (#{key.sourceId}, #{key.sourceVersion}, #{key.indexVersion}, #{chunk.ordinal},
+             #{chunk.evidence.evidenceId}, #{chunk.evidence.locationType},
+             #{chunk.evidence.startMs,jdbcType=BIGINT}, #{chunk.evidence.endMs,jdbcType=BIGINT},
+             #{chunk.evidence.text}, #{chunk.evidence.paragraph,jdbcType=INTEGER},
+             #{chunk.evidence.page,jdbcType=INTEGER}, string_to_array(#{chunk.terms}, ' '))
+        </foreach>
+    </insert>
+
+    <!-- 先只保留词项有交集的片段，再用交集数量和原文顺序排序。 -->
+    <select id="search" resultMap="evidence">
+        SELECT evidence_id, source_id::text AS source_id, source_version, location_type,
+            start_ms, end_ms, body, paragraph, page
+        FROM lexical_evidence_chunks c
+        CROSS JOIN (SELECT string_to_array(#{terms}, ' ') AS terms) q
+        WHERE <include refid="versionKey"/> AND c.terms &amp;&amp; q.terms
+        ORDER BY (SELECT count(*) FROM unnest(q.terms) AS term WHERE term = ANY(c.terms)) DESC, ordinal
+        LIMIT #{limit}
+    </select>
+</mapper>

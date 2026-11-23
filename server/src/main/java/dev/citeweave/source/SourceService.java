@@ -8,6 +8,9 @@ import static dev.citeweave.source.SourceException.Code.*;
 
 @Service
 class SourceService {
+    record PreparedUpload(String title, String filename, SourceParser.Parsed parsed) {}
+
+    private static final String LOCAL_WORKSPACE = "local-personal";
     private final SourceRepository repository;
     private final SourceParser parser;
 
@@ -20,9 +23,26 @@ class SourceService {
         return repository.list();
     }
 
+    /** 当前只开放本机个人空间，工作区不从请求读取。 */
+    List<SourceRepository.Summary> listFavorites() {
+        return repository.listFavorites(LOCAL_WORKSPACE);
+    }
+
+    boolean favorite(long id) {
+        return repository.favorite(LOCAL_WORKSPACE, id).orElseThrow(SourceService::notFound);
+    }
+
+    /** 以显式目标状态保存或取消收藏，资料正文无需读写。 */
+    boolean setFavorite(long id, boolean favorited) {
+        return repository.setFavorite(LOCAL_WORKSPACE, id, favorited).orElseThrow(SourceService::notFound);
+    }
+
     SourceRepository.Detail find(long id) {
-        return repository.find(id).orElseThrow(() ->
-                new SourceException(SOURCE_NOT_FOUND, "找不到这份资料。"));
+        return repository.find(id).orElseThrow(SourceService::notFound);
+    }
+
+    private static SourceException notFound() {
+        return new SourceException(SOURCE_NOT_FOUND, "找不到这份资料。");
     }
 
     List<TranscriptParser.Segment> transcript(long id) {
@@ -39,6 +59,27 @@ class SourceService {
     }
 
     SourceRepository.Detail upload(String title, MultipartFile file) {
+        return upload(title, file, false);
+    }
+
+    /** 视频导入只复用字幕解析分支。 */
+    SourceRepository.Detail uploadSubtitle(MultipartFile file) {
+        return upload(null, file, true);
+    }
+
+    private SourceRepository.Detail upload(String title, MultipartFile file, boolean subtitleOnly) {
+        var upload = prepareUpload(title, file, subtitleOnly);
+        var parsed = upload.parsed();
+        if (parsed.kind().equals("PDF")) return repository.insertPdf(upload.title(), upload.filename(), parsed);
+        return repository.insert(upload.title(), parsed.kind(), upload.filename(), parsed.content());
+    }
+
+    /** 在写入前验证字幕，使视频绑定能先检查整个时间轴。 */
+    PreparedUpload prepareSubtitle(MultipartFile file) {
+        return prepareUpload(null, file, true);
+    }
+
+    private PreparedUpload prepareUpload(String title, MultipartFile file, boolean subtitleOnly) {
         String originalName = file.getOriginalFilename();
         String filename = originalName == null ? "" : originalName.replace('\\', '/');
         filename = filename.substring(filename.lastIndexOf('/') + 1).strip();
@@ -46,12 +87,14 @@ class SourceService {
                 || filename.indexOf('.') <= 0 || filename.indexOf(0) >= 0) {
             throw new SourceException(SOURCE_FILE_INVALID, "请选择具有有效文件名的非空文件。");
         }
+        if (subtitleOnly && !filename.toLowerCase(java.util.Locale.ROOT).matches(".*\\.(srt|vtt)$")) {
+            throw new SourceException(SOURCE_FILE_TYPE_UNSUPPORTED, "请为视频上传 SRT 或 VTT 字幕。");
+        }
         String resolvedTitle = title == null || title.isBlank()
                 ? filename.substring(0, filename.lastIndexOf('.')) : title;
         resolvedTitle = validTitle(resolvedTitle);
         try {
-            var parsed = parser.file(filename, file.getBytes());
-            return repository.insert(resolvedTitle, parsed.kind(), filename, parsed.content());
+            return new PreparedUpload(resolvedTitle, filename, parser.file(filename, file.getBytes()));
         } catch (IOException exception) {
             throw new SourceException(SOURCE_FILE_UNREADABLE, "无法读取上传的文件。", exception);
         }

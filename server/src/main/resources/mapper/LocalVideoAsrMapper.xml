@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.citeweave.video.local.LocalVideoAsrMapper">
+    <sql id="currentAttempt">
+        video_id = #{id} AND status = 'RUNNING' AND attempt = #{attempt}
+            AND lease_until &gt; clock_timestamp()
+    </sql>
+
+    <insert id="enqueue">
+        INSERT INTO local_video_asr_tasks (video_id) VALUES (#{id})
+        ON CONFLICT (video_id) DO NOTHING
+    </insert>
+
+    <select id="claim" resultType="dev.citeweave.video.local.LocalVideoAsrMapper$Job"
+            affectData="true" flushCache="true" useCache="false">
+        UPDATE local_video_asr_tasks SET status = 'RUNNING', attempt = attempt + 1,
+            lease_until = clock_timestamp() + make_interval(secs => #{leaseSeconds}), updated_at = clock_timestamp()
+        WHERE video_id = (SELECT video_id FROM local_video_asr_tasks WHERE status = 'QUEUED'
+            ORDER BY updated_at, video_id LIMIT 1 FOR UPDATE SKIP LOCKED)
+        RETURNING video_id, status, attempt, error_code, source_id, updated_at
+    </select>
+
+    <update id="expire">
+        UPDATE local_video_asr_tasks SET status = 'FAILED', error_code = 'ASR_LEASE_EXPIRED',
+            lease_until = NULL, updated_at = clock_timestamp()
+        WHERE status = 'RUNNING' AND lease_until &lt;= clock_timestamp()
+    </update>
+
+    <update id="retry">
+        UPDATE local_video_asr_tasks SET status = 'QUEUED', error_code = NULL, updated_at = clock_timestamp()
+        WHERE video_id = #{id} AND status = 'FAILED'
+    </update>
+
+    <update id="complete">
+        UPDATE local_video_asr_tasks SET status = 'SUCCEEDED', source_id = #{sourceId},
+            lease_until = NULL, updated_at = clock_timestamp()
+        WHERE <include refid="currentAttempt"/>
+    </update>
+
+    <update id="fail">
+        UPDATE local_video_asr_tasks SET status = 'FAILED', error_code = #{error},
+            lease_until = NULL, updated_at = clock_timestamp()
+        WHERE <include refid="currentAttempt"/>
+    </update>
+</mapper>

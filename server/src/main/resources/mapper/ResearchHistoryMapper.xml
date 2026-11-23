@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.citeweave.source.ResearchHistoryMapper">
+    <sql id="requestIdentity">workspace_key = #{workspace} AND request_key = #{key}</sql>
+    <sql id="requestRunning">status = 'RUNNING'</sql>
+    <sql id="requestActive"><include refid="requestRunning"/> AND expires_at &gt; clock_timestamp()</sql>
+
+    <select id="insertSnapshot" resultType="dev.citeweave.source.ResearchHistoryMapper$HistoryRow"
+            affectData="true" flushCache="true" useCache="false">
+        INSERT INTO research_history (id, workspace_key, question, source_ids, snapshot)
+        VALUES (#{id}, #{workspace}, #{question}, CAST(#{sources} AS jsonb), CAST(#{snapshot} AS jsonb))
+        RETURNING id, question, created_at
+    </select>
+
+    <insert id="claim">
+        INSERT INTO research_requests
+            (workspace_key, request_key, fingerprint, status, checkpoint_token_digest, checkpoint_scope, question)
+        VALUES (#{workspace}, #{key}, #{fingerprint}, 'RUNNING', #{digest}, CAST(#{scope} AS jsonb), #{question})
+        ON CONFLICT (workspace_key, request_key) DO NOTHING
+    </insert>
+
+    <!-- 复制断点与绑定父请求在同一语句完成，由唯一约束拦截重复续跑。 -->
+    <insert id="claimResume">
+        INSERT INTO research_requests (workspace_key, request_key, fingerprint, status,
+            checkpoint_token_digest, checkpoint_scope, checkpoint_trace, checkpoint_context,
+            resume_from, input_fingerprint, question)
+        SELECT workspace_key, #{key}, #{fingerprint}, 'RUNNING', #{digest},
+            checkpoint_scope, checkpoint_trace, checkpoint_context, request_key,
+            COALESCE(input_fingerprint, fingerprint), question
+        FROM research_requests WHERE workspace_key = #{workspace} AND request_key = #{parent}
+            AND status = 'UNKNOWN' AND checkpoint_context IS NOT NULL
+        ON CONFLICT DO NOTHING
+    </insert>
+
+    <select id="requestView" resultType="dev.citeweave.source.ResearchHistoryMapper$RequestViewRow">
+        SELECT CASE WHEN r.status = 'RUNNING' AND r.expires_at &lt;= clock_timestamp()
+                    THEN 'UNKNOWN' ELSE r.status END AS status,
+            r.question, r.checkpoint_scope, r.checkpoint_trace, r.record_id,
+            r.checkpoint_context IS NOT NULL AS has_checkpoint, child.request_key AS next_key
+        FROM research_requests r
+        LEFT JOIN research_requests child ON child.workspace_key = r.workspace_key
+            AND child.resume_from = r.request_key
+        WHERE r.workspace_key = #{workspace} AND r.request_key = #{key}
+            AND r.question IS NOT NULL AND r.checkpoint_scope IS NOT NULL
+    </select>
+
+    <select id="claimed" resultType="dev.citeweave.source.ResearchHistoryMapper$ClaimRow">
+        SELECT fingerprint, COALESCE(input_fingerprint, fingerprint) AS input_fingerprint,
+            status, record_id, checkpoint_token_digest, checkpoint_scope, checkpoint_trace,
+            checkpoint_context, (<include refid="requestActive"/>) AS active
+        FROM research_requests WHERE <include refid="requestIdentity"/>
+    </select>
+
+    <!-- 比较轨迹和上下文的旧快照，拒绝并发覆盖。 -->
+    <update id="appendCheckpoint">
+        UPDATE research_requests SET checkpoint_trace = CAST(#{after} AS jsonb),
+            checkpoint_context = CAST(#{context} AS jsonb)
+        WHERE <include refid="requestIdentity"/> AND <include refid="requestActive"/>
+            AND checkpoint_trace = CAST(#{before} AS jsonb)
+            AND checkpoint_context IS NOT DISTINCT FROM CAST(#{priorContext,jdbcType=VARCHAR} AS jsonb)
+    </update>
+
+    <update id="completeRequest">
+        UPDATE research_requests SET status = 'COMPLETED', record_id = #{recordId}
+        WHERE <include refid="requestIdentity"/> AND <include refid="requestActive"/>
+            AND checkpoint_trace = CAST(#{trace} AS jsonb)
+    </update>
+
+    <update id="fail">
+        UPDATE research_requests SET status = 'FAILED'
+        WHERE <include refid="requestIdentity"/> AND <include refid="requestActive"/>
+    </update>
+
+    <update id="expireIfDue">
+        UPDATE research_requests SET status = 'UNKNOWN'
+        WHERE <include refid="requestIdentity"/> AND <include refid="requestRunning"/>
+            AND expires_at &lt;= clock_timestamp()
+    </update>
+
+    <update id="markUnknown">
+        UPDATE research_requests SET status = 'UNKNOWN'
+        WHERE <include refid="requestIdentity"/> AND <include refid="requestRunning"/>
+    </update>
+
+    <select id="recent" resultType="dev.citeweave.source.ResearchHistoryMapper$HistoryRow">
+        SELECT id, question, created_at FROM research_history
+        WHERE workspace_key = #{workspace} ORDER BY created_at DESC, id DESC LIMIT #{limit}
+    </select>
+</mapper>

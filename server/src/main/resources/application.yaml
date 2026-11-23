@@ -15,3 +15,31 @@ spring:
   mvc:
     problemdetails:
       enabled: true
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-handlers-package: dev.citeweave.source.persistence
+  configuration:
+    map-underscore-to-camel-case: true
+citeweave:
+  retrieval:
+    lexical-index-enabled: ${CITEWEAVE_LEXICAL_INDEX_ENABLED:false}
+  tasks:
+    lease-seconds: ${CITEWEAVE_TASK_LEASE_SECONDS:60}
+  video:
+    storage-root: ${CITEWEAVE_VIDEO_STORAGE_ROOT:${user.home}/.citeweave/media}
+    asr:
+      enabled: ${CITEWEAVE_ASR_ENABLED:false}
+      python: ${CITEWEAVE_ASR_PYTHON:python}
+      python-path: "${CITEWEAVE_ASR_PYTHONPATH:}"
+      model-dir: "${CITEWEAVE_ASR_MODEL_DIR:}"
+      ffmpeg: ${CITEWEAVE_ASR_FFMPEG:ffmpeg}
+      timeout-seconds: ${CITEWEAVE_ASR_TIMEOUT_SECONDS:150}
+      lease-seconds: ${CITEWEAVE_ASR_LEASE_SECONDS:180}
+      threads: ${CITEWEAVE_ASR_THREADS:4}
+      max-seconds: ${CITEWEAVE_ASR_MAX_SECONDS:120}
+      poll-delay-ms: ${CITEWEAVE_ASR_POLL_DELAY_MS:1000}
+    probe:
+      executable: ${CITEWEAVE_FFPROBE:ffprobe}
+      timeout: ${CITEWEAVE_VIDEO_PROBE_TIMEOUT:5s}
+      max-duration: ${CITEWEAVE_VIDEO_MAX_DURATION:10m}
+      concurrency: ${CITEWEAVE_VIDEO_PROBE_CONCURRENCY:2}
